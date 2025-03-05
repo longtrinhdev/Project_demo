@@ -1,0 +1,28 @@
+{
+  "name": "duolingo",
+  "version": "1.0.0",
+  "main": "backend/main.js",
+  "scripts": {
+    "start": "nodemon",
+    "dev": "nodemon backend/main.js",
+    "build": "npm install"
+  },
+  "author": "PI",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "5.0.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "10.0.0",
+    "express": "^4.17.1",
+    "google-auth-library": "^8.4.0",
+    "jsonwebtoken": "8.5.1",
+    "mongoose": "6.1.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.16",
+    "nodemon": "3.1.9",
+    "uuid": "^11.0.3"
+  }
+}
