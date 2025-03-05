@@ -74,14 +74,22 @@ const authController = {
         saveRefreshTokens.push(refreshToken);
         console.log(saveRefreshTokens.length);
 
-        const { password, ...others } = user._doc;
+        const {
+          name,
+          password,
+          username,
+          email,
+          bio,
+          followers,
+          followings,
+          ...others
+        } = user._doc;
 
-        // return res.status(200).json({
-        //   ...others,
-        //   accessToken,
-        //   refreshToken,
-        // });
-        return res.status(200).json({ message: "Signin Success" });
+        return res.status(200).json({
+          user: others,
+          accessToken,
+          refreshToken,
+        });
       }
     } catch (error) {
       return res.status(500).json("Internal Server Error");
@@ -292,7 +300,7 @@ const authController = {
         id: user.id,
       },
       process.env.JWT_ACCESS_TOKEN,
-      { expiresIn: "1h" }
+      { expiresIn: "7h" }
     );
   },
 

@@ -21,6 +21,10 @@ const chapterSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    color: {
+      type: String,
+      required: true,
+    },
     courseId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course",

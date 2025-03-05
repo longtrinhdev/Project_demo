@@ -23,4 +23,18 @@ class LanguageRepoImpl extends LanguageRepository {
       },
     );
   }
+
+  @override
+  Future<Either> getCourseById(String id) async {
+    final responseData = await sl<LanguageService>().getCourseById(id);
+    return responseData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) {
+        final course = LanguageMapper.toEntity(LanguageModel.fromJson(data));
+        return Right(course);
+      },
+    );
+  }
 }

@@ -13,8 +13,11 @@ class ApiUrls {
   static const order = '$baseUrl/auth/order';
   // courses
   static const addCourse = '$baseUrl/course/add';
-  static const methodById = '$baseUrl/course/';
+  static const methodById = '$baseUrl/course';
   static const getAllCourse = "$baseUrl/course/all";
+
+  // chapter
+  static const getAllChapter = '$baseUrl/chapter/all';
 }
 //192.168.9.102
 //10.100.13.3

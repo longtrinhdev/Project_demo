@@ -1,18 +1,37 @@
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/presentation/home/pages/home_page.dart';
+import 'package:doulingo/presentation/practice/pages/practice_page.dart';
+import 'package:doulingo/presentation/profile/pages/profile_page.dart';
+import 'package:doulingo/presentation/pronounce/pages/pronounce_page.dart';
+import 'package:doulingo/presentation/rank/pages/rank_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final List<String>? learnDays;
+  final num? score;
+  final String courseId;
+  const MainPage({
+    super.key,
+    this.learnDays,
+    required this.score,
+    required this.courseId,
+  });
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  String indexSelected = AppVectors.icHome;
+  int? indexSelected = 0;
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
 
   Widget _bottom(Size size) {
     return Container(
@@ -33,11 +52,11 @@ class _MainPageState extends State<MainPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _itemBottomNav(AppVectors.icHome),
-              _itemBottomNav(AppVectors.icMouth),
-              _itemBottomNav(AppVectors.icDumbbell),
-              _itemBottomNav(AppVectors.icRank),
-              _itemBottomNav(AppVectors.icProfile),
+              _itemBottomNav(AppVectors.icHome, 0),
+              _itemBottomNav(AppVectors.icMouth, 1),
+              _itemBottomNav(AppVectors.icDumbbell, 2),
+              _itemBottomNav(AppVectors.icRank, 3),
+              _itemBottomNav(AppVectors.icProfile, 4),
             ],
           ),
         ],
@@ -45,17 +64,18 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _itemBottomNav(String image) {
+  Widget _itemBottomNav(String image, int index) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          indexSelected = image;
+          indexSelected = index;
         });
+        _pageController.jumpToPage(index);
       },
       child: Container(
         padding: const EdgeInsets.all(6),
         alignment: Alignment.center,
-        decoration: (indexSelected == image)
+        decoration: (indexSelected == index)
             ? BoxDecoration(
                 color: AppColors.textThirdColor.withOpacity(.2),
                 borderRadius: BorderRadius.circular(8),
@@ -74,11 +94,29 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  Widget _pageView() {
+    return PageView(
+      controller: _pageController,
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        HomePage(
+          courseId: widget.courseId,
+          learnDays: widget.learnDays,
+          score: widget.score,
+        ),
+        const PronouncePage(),
+        const PracticePage(),
+        const RankPage(),
+        const ProfilePage(),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: const HomePage(),
+      body: _pageView(),
       bottomNavigationBar: _bottom(size),
     );
   }

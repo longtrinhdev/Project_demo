@@ -5,33 +5,19 @@ import 'package:doulingo/core/constant/api_urls.dart';
 import 'package:doulingo/core/network/dio_client.dart';
 import 'package:doulingo/service_locators.dart';
 
-abstract class LanguageService {
-  Future<Either> getAllLanguage();
-  Future<Either> getCourseById(String id);
+abstract class ChapterService {
+  Future<Either> getChapterById(String idCourse);
 }
 
-class LanguageServiceImpl extends LanguageService {
+class ChapterServiceImpl extends ChapterService {
   @override
-  Future<Either> getAllLanguage() async {
-    try {
-      var response = await sl<DioClient>().get(
-        ApiUrls.getAllCourse,
-      );
-      return Right(response.data);
-    } on DioException catch (error) {
-      return Left(error.response!.data['message']);
-    }
-  }
-
-  @override
-  Future<Either> getCourseById(String id) async {
+  Future<Either> getChapterById(String idCourse) async {
     try {
       final token = await sl<GetDataUseCase>().call(
         params: 'access_token',
       );
-
-      var response = await sl<DioClient>().get(
-        '${ApiUrls.methodById}/$id',
+      final responseData = await sl<DioClient>().get(
+        '${ApiUrls.getAllChapter}/$idCourse',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -39,7 +25,7 @@ class LanguageServiceImpl extends LanguageService {
           },
         ),
       );
-      return Right(response.data);
+      return Right(responseData.data);
     } on DioException catch (error) {
       return Left(error.response!.data['message']);
     }

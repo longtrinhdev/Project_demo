@@ -24,7 +24,11 @@ const courseController = {
       if (!course) {
         return res.status(404).json({ message: "Course not found" });
       }
-      res.status(200).json(course.idChapters);
+      const chapters = await Chapter.find({
+        _id: { $in: course.idChapters },
+      });
+
+      res.status(200).json(chapters);
     } catch (error) {
       return res.status(500).json({ message: "Internal Server Error" });
     }

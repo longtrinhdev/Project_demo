@@ -1,6 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:doulingo/common/helpers/mapper/shared_req.dart';
+import 'package:doulingo/common/helpers/mapper/user.dart';
+import 'package:doulingo/common/local_data/repository/local_data_repo.dart';
 import 'package:doulingo/data/auth/models/signin_req.dart';
 import 'package:doulingo/data/auth/models/signup_req.dart';
+import 'package:doulingo/data/auth/models/user.dart';
 import 'package:doulingo/data/auth/source/auth_service.dart';
 import 'package:doulingo/domain/auth/repository/auth_repo.dart';
 import 'package:doulingo/service_locators.dart';
@@ -32,8 +36,22 @@ class AuthRepoImpl extends AuthRepo {
       (error) {
         return Left(error);
       },
-      (data) {
-        return Right(data);
+      (data) async {
+        final userData = UserMapper.toEntity(UserModel.fromJson(data['user']));
+        await sl<LocalDataRepo>().setString(
+          SharedReq(
+            key: 'access_token',
+            value: data['accessToken'],
+          ),
+        );
+
+        await sl<LocalDataRepo>().setString(
+          SharedReq(
+            key: 'refresh_token',
+            value: data['refreshToken'],
+          ),
+        );
+        return Right(userData);
       },
     );
   }

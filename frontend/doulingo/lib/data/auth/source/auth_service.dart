@@ -46,7 +46,7 @@ class AuthServiceImpl extends AuthService {
         ApiUrls.signin,
         data: signinReq.toMap(),
       );
-      return Right(responseData);
+      return Right(responseData.data);
     } on DioException catch (error) {
       return Left(error.response!.data['message']);
     }

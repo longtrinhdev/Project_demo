@@ -1,10 +1,12 @@
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
+import 'package:doulingo/common/local_data/use_case/get_data_use_case.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/data/auth/models/signin_req.dart';
+import 'package:doulingo/domain/auth/entities/user.dart';
 import 'package:doulingo/domain/auth/use_case/signin_use_case.dart';
 import 'package:doulingo/presentation/auth/forgot_password/forgot_password.dart';
 import 'package:doulingo/presentation/main/pages/main_page.dart';
@@ -153,7 +155,7 @@ class _SigninPageState extends State<SigninPage> {
                   password: _controllerPassword.text,
                 ),
               );
-
+              final courseId = await _getValueByKey('language');
               return data.fold(
                 (l) {
                   setState(() {
@@ -161,9 +163,14 @@ class _SigninPageState extends State<SigninPage> {
                   });
                 },
                 (r) {
+                  UserEntity userEntity = r as UserEntity;
                   AppRoute.pushAndRemove(
                     context,
-                    const MainPage(),
+                    MainPage(
+                      courseId: courseId,
+                      learnDays: userEntity.learnDays,
+                      score: userEntity.score,
+                    ),
                   );
                 },
               );
@@ -298,6 +305,13 @@ class _SigninPageState extends State<SigninPage> {
         fontWeight: FontWeight.w900,
       ),
     );
+  }
+
+  Future<String> _getValueByKey(String key) async {
+    final courseId = await sl<GetDataUseCase>().call(
+      params: key,
+    );
+    return courseId;
   }
 
   @override
