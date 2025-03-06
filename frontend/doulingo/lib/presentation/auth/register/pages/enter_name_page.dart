@@ -197,7 +197,7 @@ class _EnterNamePageState extends State<EnterNamePage> {
             final name =
                 "${_controllerFirstName.text} ${_controllerLastName.text}";
             if (checkButton) {
-              AppRoute.push(
+              AppRoute.pushLeftToRight(
                 context,
                 EnterPasswordPage(
                   name: name,

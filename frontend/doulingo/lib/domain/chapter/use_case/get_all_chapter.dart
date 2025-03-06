@@ -3,9 +3,9 @@ import 'package:doulingo/core/usecase/use_case.dart';
 import 'package:doulingo/domain/chapter/repository/chapter_repo.dart';
 import 'package:doulingo/service_locators.dart';
 
-class GetChapterById extends UseCase<Either, String> {
+class GetAllChapterUseCase extends UseCase<Either, String> {
   @override
   Future<Either> call({String? params}) async {
-    return await sl<ChapterRepo>().getChapterById(params!);
+    return await sl<ChapterRepo>().getAllChapter(params!);
   }
 }

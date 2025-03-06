@@ -17,4 +17,12 @@ class AppVectors {
   static const String icScore = '$basePath/ic_score.svg';
   static const String icHeart = '$basePath/ic_heart.svg';
   static const String icList = '$basePath/ic_list.svg';
+
+  static const String icLoadFailed = '$basePath/ic_load_failed.svg';
+  static const String icCheck = '$basePath/ic_check.svg';
+  static const String icStar = '$basePath/ic_star.svg';
+  static const String icStarGrey = '$basePath/ic_star_grey.svg';
+  static const String icAward = '$basePath/ic_award.svg';
+  static const String icDumbbellGrey = '$basePath/ic_dumbbell_grey.svg';
+  static const String icBook = '$basePath/ic_book.svg';
 }

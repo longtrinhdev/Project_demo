@@ -13,4 +13,7 @@ class AppColors {
 
   static const unselect = Color(0xffE5E5E5);
   static const select = Color(0xff1899D6);
+
+  static const colorStreak = Color(0xffEE9623);
+  static const colorHeart = Color(0xffE45457);
 }

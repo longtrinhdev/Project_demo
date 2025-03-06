@@ -70,4 +70,11 @@ class AppTexts {
       'Bạn đã tạo tài khoản thành công \nhãy quay lại đăng nhập nhé!';
   static const String tvSignupSuccessContent =
       'Đã cập nhật mật khẩu thành công \nhãy kiểm tra email nhé!';
+
+  // load failed
+  static const String tvLoadFailedTitle =
+      'Không thể tải dữ liệu,\nđăng nhập lại nhé! \n';
+
+  //lesson
+  static const String tvLessonTitle = 'Khóa học ';
 }

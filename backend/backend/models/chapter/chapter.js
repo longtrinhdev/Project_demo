@@ -21,6 +21,11 @@ const chapterSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    isUnlocked: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     color: {
       type: String,
       required: true,

@@ -20,7 +20,7 @@ class WelcomePage extends StatelessWidget {
   Widget _button(BuildContext context) {
     return BaseButton(
       onPressed: () {
-        AppRoute.push(context, const PageTwo());
+        AppRoute.pushLeftToRight(context, const PageTwo());
       },
       backgroundColor: AppColors.secondColor,
       checkBorder: true,

@@ -21,7 +21,7 @@ class PageTwo extends StatelessWidget {
   Widget _button(BuildContext context) {
     return BaseButton(
       onPressed: () {
-        AppRoute.push(
+        AppRoute.pushLeftToRight(
           context,
           const ChooseLanguage(),
         );

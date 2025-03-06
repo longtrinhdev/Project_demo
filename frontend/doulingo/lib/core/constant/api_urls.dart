@@ -18,6 +18,7 @@ class ApiUrls {
 
   // chapter
   static const getAllChapter = '$baseUrl/chapter/all';
+  static const getChapterById = '$baseUrl/chapter';
 }
 //192.168.9.102
 //10.100.13.3

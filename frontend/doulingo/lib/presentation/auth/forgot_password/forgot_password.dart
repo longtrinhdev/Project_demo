@@ -97,7 +97,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             });
           },
           (r) {
-            AppRoute.pushAndRemove(
+            AppRoute.pushAndRemoveLeftToRight(
               context,
               const SignupSuccessPage(
                 text: AppTexts.tvSignupSuccessContent,

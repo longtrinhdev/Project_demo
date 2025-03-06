@@ -1,19 +1,23 @@
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
-import 'package:doulingo/presentation/home/widgets/show_course.dart';
+import 'package:doulingo/presentation/home/widgets/chapters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatelessWidget {
   final String? courseId;
+  final String? courseName;
   final List<String>? learnDays;
+  final String? imageCourse;
   final num? score;
   const HomePage({
     super.key,
     required this.courseId,
     required this.learnDays,
     required this.score,
+    required this.imageCourse,
+    required this.courseName,
   });
 
   PreferredSizeWidget _appBar(Size size, String streak) {
@@ -31,14 +35,14 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SvgPicture.network(
-                  'https://d35aaqx5ub95lt.cloudfront.net/vendor/bbe17e16aa4a106032d8e3521eaed13e.svg',
+                  imageCourse!,
                   width: 27,
                   height: 27,
                 ),
-                _itemTopBar(AppVectors.icFire, streak, const Color(0xffEE9623)),
+                _itemTopBar(AppVectors.icFire, streak, AppColors.colorStreak),
                 _itemTopBar(
                     AppVectors.icScore, '$score', AppColors.textThirdColor),
-                _itemTopBar(AppVectors.icHeart, '5', const Color(0xffE45457)),
+                _itemTopBar(AppVectors.icHeart, '5', AppColors.colorHeart),
               ],
             ),
             const SizedBox(
@@ -81,7 +85,10 @@ class HomePage extends StatelessWidget {
       appBar: _appBar(size, streak),
       body: Container(
         padding: const EdgeInsets.all(16.0),
-        child: const ShowCourse(),
+        child: ChaptersWidget(
+          courseId: courseId!,
+          courseTitle: courseName!,
+        ),
       ),
     );
   }

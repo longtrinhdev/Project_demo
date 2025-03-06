@@ -86,7 +86,7 @@ class _PageFiveState extends State<PageFive> {
           );
           log('Bio: $bio');
           if (isSelected != null) {
-            AppRoute.push(
+            AppRoute.pushLeftToRight(
               context,
               const PageSix(progress: 0.9),
             );

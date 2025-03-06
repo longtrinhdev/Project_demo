@@ -22,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> redirect() async {
     await Future.delayed(const Duration(seconds: 3));
     if (mounted == true) {
-      AppRoute.pushReplacement(
+      AppRoute.pushAndRemoveLeftToRight(
         context,
         const IntroducePage(),
       );

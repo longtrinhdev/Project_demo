@@ -43,7 +43,7 @@ class CreateProfile extends StatelessWidget {
         children: [
           BaseButton(
             onPressed: () {
-              AppRoute.push(
+              AppRoute.pushBottomToTop(
                 context,
                 const EnterEmailPage(),
               );
@@ -64,7 +64,7 @@ class CreateProfile extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              AppRoute.pushAndRemove(
+              AppRoute.pushAndRemoveBottomToTop(
                 context,
                 const IntroducePage(),
               );

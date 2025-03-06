@@ -1,11 +1,18 @@
+import 'package:doulingo/common/bloc/generate_data_cubit.dart';
+import 'package:doulingo/common/bloc/generate_data_state.dart';
+import 'package:doulingo/common/widget/loading/loading.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
+import 'package:doulingo/domain/languages/entities/language.dart';
+import 'package:doulingo/domain/languages/usecase/get_language.dart';
 import 'package:doulingo/presentation/home/pages/home_page.dart';
 import 'package:doulingo/presentation/practice/pages/practice_page.dart';
 import 'package:doulingo/presentation/profile/pages/profile_page.dart';
 import 'package:doulingo/presentation/pronounce/pages/pronounce_page.dart';
 import 'package:doulingo/presentation/rank/pages/rank_page.dart';
+import 'package:doulingo/service_locators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainPage extends StatefulWidget {
@@ -94,12 +101,14 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _pageView() {
+  Widget _pageView(String imageCourse, String courseName) {
     return PageView(
       controller: _pageController,
       physics: const NeverScrollableScrollPhysics(),
       children: [
         HomePage(
+          imageCourse: imageCourse,
+          courseName: courseName,
           courseId: widget.courseId,
           learnDays: widget.learnDays,
           score: widget.score,
@@ -115,9 +124,25 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: _pageView(),
-      bottomNavigationBar: _bottom(size),
+    return BlocProvider(
+      create: (context) => GenerateDataCubit()
+        ..getData<LanguageEntity>(sl<GetLanguageUseCase>(),
+            params: widget.courseId),
+      child: BlocBuilder<GenerateDataCubit, GenerateDataState>(
+        builder: (context, state) {
+          if (state is DataLoading) {
+            return const AppLoading();
+          }
+          if (state is DataLoaded) {
+            LanguageEntity language = state.data;
+            return Scaffold(
+              body: _pageView(language.image!, language.language!),
+              bottomNavigationBar: _bottom(size),
+            );
+          }
+          return Container();
+        },
+      ),
     );
   }
 }

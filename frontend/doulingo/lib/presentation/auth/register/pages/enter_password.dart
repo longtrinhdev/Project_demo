@@ -183,7 +183,7 @@ class _EnterPasswordPageState extends State<EnterPasswordPage> {
                 data.fold(
                   (l) {},
                   (r) {
-                    AppRoute.pushAndRemove(
+                    AppRoute.pushAndRemoveLeftToRight(
                       context,
                       const SignupSuccessPage(
                         text: AppTexts.tvSignupSuccessTitle,

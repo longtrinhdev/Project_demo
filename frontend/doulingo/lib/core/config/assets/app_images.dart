@@ -15,4 +15,5 @@ class AppImages {
   static const String imgCongratulation = '$baseUrl/img_congratulation.png';
   static const String imgFriend = '$baseUrl/img_friend.png';
   static const String imgPlane = '$baseUrl/img_plane.png';
+  static const String imgLock = '$baseUrl/img_lock.png';
 }

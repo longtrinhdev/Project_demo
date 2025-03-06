@@ -127,7 +127,7 @@ class _PageFourState extends State<PageFour> {
     return BaseButton(
       onPressed: () {
         if (indexSelected != null) {
-          AppRoute.push(
+          AppRoute.pushLeftToRight(
             context,
             const PageFive(
               progress: 0.8,

@@ -32,7 +32,7 @@ class _SignupSuccessPageState extends State<SignupSuccessPage> {
       padding: const EdgeInsets.all(16.0),
       child: BaseButton(
         onPressed: () {
-          AppRoute.pushAndRemove(
+          AppRoute.pushAndRemoveLeftToRight(
             context,
             const SigninPage(),
           );

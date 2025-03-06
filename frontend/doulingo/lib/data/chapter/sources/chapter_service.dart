@@ -6,18 +6,40 @@ import 'package:doulingo/core/network/dio_client.dart';
 import 'package:doulingo/service_locators.dart';
 
 abstract class ChapterService {
-  Future<Either> getChapterById(String idCourse);
+  Future<Either> getAllChapter(String idCourse);
+  Future<Either> getChapterById(String chapterId);
 }
 
 class ChapterServiceImpl extends ChapterService {
   @override
-  Future<Either> getChapterById(String idCourse) async {
+  Future<Either> getAllChapter(String idCourse) async {
     try {
       final token = await sl<GetDataUseCase>().call(
         params: 'access_token',
       );
       final responseData = await sl<DioClient>().get(
         '${ApiUrls.getAllChapter}/$idCourse',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'token': 'Bearer $token',
+          },
+        ),
+      );
+      return Right(responseData.data);
+    } on DioException catch (error) {
+      return Left(error.response!.data['message']);
+    }
+  }
+
+  @override
+  Future<Either> getChapterById(String chapterId) async {
+    try {
+      final token = await sl<GetDataUseCase>().call(
+        params: 'access_token',
+      );
+      final responseData = await sl<DioClient>().get(
+        '${ApiUrls.getChapterById}/$chapterId',
         options: Options(
           headers: {
             'Content-Type': 'application/json',

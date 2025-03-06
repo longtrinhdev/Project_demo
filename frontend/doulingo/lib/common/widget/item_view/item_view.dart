@@ -6,11 +6,13 @@ class ItemView extends StatefulWidget {
   final Widget? title;
   final Widget? trailing;
   final bool isSelected;
+  final Color? backgroundColor;
   const ItemView({
     super.key,
     this.leading,
     this.title,
     this.trailing,
+    this.backgroundColor,
     required this.isSelected,
   });
 
@@ -28,7 +30,9 @@ class _ItemViewState extends State<ItemView> {
         borderRadius: BorderRadius.circular(16),
         color: (widget.isSelected == true)
             ? AppColors.textThirdColor.withOpacity(.2)
-            : null,
+            : (widget.backgroundColor != null)
+                ? widget.backgroundColor
+                : null,
         border: Border(
             bottom: BorderSide(
               width: 4,
@@ -55,11 +59,13 @@ class _ItemViewState extends State<ItemView> {
                   : AppColors.select.withOpacity(.3),
             )),
       ),
-      child: ListTile(
-        leading: widget.leading ?? const SizedBox(),
-        title: widget.title ?? const SizedBox(),
-        trailing: widget.trailing ?? const SizedBox(),
-      ),
+      child: (widget.leading == null && widget.trailing == null)
+          ? widget.title
+          : ListTile(
+              leading: widget.leading,
+              title: widget.title ?? const SizedBox(),
+              trailing: widget.trailing,
+            ),
     );
   }
 }

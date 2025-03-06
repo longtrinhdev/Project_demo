@@ -82,7 +82,7 @@ class _PageSixState extends State<PageSix> {
           Future.delayed(
             const Duration(seconds: 5),
           );
-          AppRoute.push(
+          AppRoute.pushLeftToRight(
             context,
             const CreateProfile(),
           );

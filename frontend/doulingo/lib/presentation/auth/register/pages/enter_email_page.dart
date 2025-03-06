@@ -186,14 +186,14 @@ class _EnterEmailPageState extends State<EnterEmailPage> {
 
           if (mounted) {
             if (checkUser) {
-              AppRoute.push(
+              AppRoute.pushLeftToRight(
                 context,
                 const SigninPage(
                   checkUser: true,
                 ),
               );
             } else {
-              AppRoute.push(
+              AppRoute.pushLeftToRight(
                 context,
                 EnterNamePage(
                   email: _controllerEmail.text.toString(),

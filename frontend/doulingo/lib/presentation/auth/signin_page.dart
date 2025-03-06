@@ -164,7 +164,7 @@ class _SigninPageState extends State<SigninPage> {
                 },
                 (r) {
                   UserEntity userEntity = r as UserEntity;
-                  AppRoute.pushAndRemove(
+                  AppRoute.pushAndRemoveBottomToTop(
                     context,
                     MainPage(
                       courseId: courseId,
@@ -194,7 +194,7 @@ class _SigninPageState extends State<SigninPage> {
   Widget _forgotPassword() {
     return GestureDetector(
       onTap: () {
-        AppRoute.push(
+        AppRoute.pushBottomToTop(
           context,
           const ForgotPassword(),
         );

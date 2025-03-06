@@ -16,6 +16,7 @@ import 'package:doulingo/domain/auth/use_case/forgot_pw.dart';
 import 'package:doulingo/domain/auth/use_case/signin_use_case.dart';
 import 'package:doulingo/domain/auth/use_case/signup_use_case.dart';
 import 'package:doulingo/domain/chapter/repository/chapter_repo.dart';
+import 'package:doulingo/domain/chapter/use_case/get_all_chapter.dart';
 import 'package:doulingo/domain/chapter/use_case/get_chapter_by_id.dart';
 import 'package:doulingo/domain/languages/repository/language_repo.dart';
 import 'package:doulingo/domain/languages/usecase/get_all_language.dart';
@@ -53,5 +54,6 @@ void setUpServiceLocator() {
   sl.registerSingleton<GetLanguageUseCase>(GetLanguageUseCase());
 
   // use case chapter
-  sl.registerSingleton<GetChapterByIdUseCase>(GetChapterByIdUseCase());
+  sl.registerSingleton<GetAllChapterUseCase>(GetAllChapterUseCase());
+  sl.registerSingleton<GetChapterById>(GetChapterById());
 }

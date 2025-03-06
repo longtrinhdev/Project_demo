@@ -20,7 +20,7 @@ class IntroducePage extends StatelessWidget {
         ),
         BaseButton(
           onPressed: () {
-            AppRoute.push(
+            AppRoute.pushBottomToTop(
               context,
               const WelcomePage(),
             );
@@ -41,7 +41,7 @@ class IntroducePage extends StatelessWidget {
         ),
         BaseButton(
           onPressed: () {
-            AppRoute.push(
+            AppRoute.pushBottomToTop(
               context,
               const SigninPage(),
             );

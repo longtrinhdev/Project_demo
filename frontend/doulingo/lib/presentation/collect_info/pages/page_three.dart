@@ -69,7 +69,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
         );
         log('Id: ${language.id}');
         if (indexSelected != null && mounted) {
-          AppRoute.push(
+          AppRoute.pushLeftToRight(
             context,
             const PageFour(progress: 0.6),
           );
