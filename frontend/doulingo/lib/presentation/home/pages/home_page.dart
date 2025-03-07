@@ -84,7 +84,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: _appBar(size, streak),
       body: Container(
-        padding: const EdgeInsets.all(20.0), //16
+        padding: const EdgeInsets.all(16.0),
         child: ChaptersWidget(
           courseId: courseId!,
           courseTitle: courseName!,
