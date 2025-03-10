@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const chapterContentSchema = mongoose.Schema(
+const sectionContentSchema = mongoose.Schema(
   {
     content: {
       type: String,
@@ -17,14 +17,14 @@ const chapterContentSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    chapterId: {
+    sectionId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Chapter",
+      ref: "Section",
     },
   },
   { timestamp: true }
 );
 
 // export
-const chapterContent = mongoose.model("Content", chapterContentSchema);
+const chapterContent = mongoose.model("Content", sectionContentSchema);
 module.exports = chapterContent;

@@ -60,6 +60,22 @@ const syllableController = {
     }
   },
 
+  // ?get all consonant and vowel by course id
+  getAllSyllableByCourseId: async (req, res) => {
+    try {
+      const course = await Course.findById(req.params.id);
+      if (!course) {
+        return res.status(404).json({ message: "Course not found" });
+      }
+      const syllables = await Syllable.find({
+        _id: { $in: [...course.vowelIds, ...course.consonantIds] },
+      });
+      return res.status(200).json(syllables);
+    } catch (error) {
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
+
   // ?get syllable by id
   getSyllableById: async (req, res) => {
     try {

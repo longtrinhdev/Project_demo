@@ -1,14 +1,14 @@
 const Lesson = require("../../models/lesson/lesson");
-const Chapter = require("../../models/chapter/chapter");
+const Section = require("../../models/section/section");
 
 const lessonController = {
-  // ?add lesson to chapter
+  // ?add lesson to section
   addLesson: async (req, res) => {
     try {
       const newLesson = new Lesson(req.body);
       const saveLesson = await newLesson.save();
-      await Chapter.findByIdAndUpdate(req.body.chapterId, {
-        $push: { lessons: saveLesson._id },
+      await Section.findByIdAndUpdate(req.body.sectionId, {
+        $push: { lessonIds: saveLesson._id },
       });
       res.status(200).json({ message: "Add lesson successfully! " });
     } catch (error) {
@@ -17,15 +17,15 @@ const lessonController = {
     }
   },
 
-  //? get all lessons in a chapter
+  //? get all lessons in a section
   getAllLessons: async (req, res) => {
     try {
-      const chapter = await Chapter.findById(req.params.id);
-      if (!chapter) {
-        return res.status(404).json({ message: "Chapter not found" });
+      const section = await Section.findById(req.params.id);
+      if (!section) {
+        return res.status(404).json({ message: "Section not found" });
       }
       const lesson = await Lesson.find({
-        _id: { $in: chapter.lessons },
+        _id: { $in: section.lessonIds },
       });
       res.status(200).json(lesson);
     } catch (error) {
@@ -46,7 +46,7 @@ const lessonController = {
     }
   },
 
-  // ? update lesson in chapter
+  // ? update lesson in section
   updateLesson: async (req, res) => {
     try {
       const lesson = await Lesson.findByIdAndUpdate(req.params.id, req.body, {
@@ -68,8 +68,8 @@ const lessonController = {
       if (!lesson) {
         return res.status(404).json({ message: "Lesson not found" });
       }
-      await Chapter.findByIdAndUpdate(lesson.chapterId, {
-        $pull: { lessons: lesson._id },
+      await Section.findByIdAndUpdate(lesson.sectionId, {
+        $pull: { lessonIds: lesson._id },
       });
       res.status(200).json({ message: "Lesson deleted successfully!" });
     } catch (error) {

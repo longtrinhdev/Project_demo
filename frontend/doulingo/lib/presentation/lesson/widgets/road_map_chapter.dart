@@ -1,182 +1,130 @@
-import 'package:doulingo/common/bloc/generate_data_cubit.dart';
-import 'package:doulingo/common/bloc/generate_data_state.dart';
-import 'package:doulingo/common/helpers/navigation/app_route.dart';
-import 'package:doulingo/common/widget/button/base_button.dart';
-import 'package:doulingo/common/widget/failed_page/failed_page.dart';
-import 'package:doulingo/common/widget/loading/loading.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
-import 'package:doulingo/domain/chapter/entities/chapter.dart';
-import 'package:doulingo/domain/chapter/use_case/get_chapter_by_id.dart';
-import 'package:doulingo/presentation/Q&A/pages/question_answer_page.dart';
-import 'package:doulingo/presentation/lesson/widgets/circle_button.dart';
-import 'package:doulingo/service_locators.dart';
+import 'package:doulingo/core/config/theme/border_color.dart';
+import 'package:doulingo/domain/section/entities/section.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RoadMapChapter extends StatelessWidget {
-  final String chapterId;
+  final SectionEntity data;
   const RoadMapChapter({
     super.key,
-    required this.chapterId,
+    required this.data,
   });
 
-  Widget _header(String title, String chapterName, Color color) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: BaseButton(
-        onPressed: () {},
-        height: 80,
-        checkBorder: true,
-        backgroundColor: color,
-        widget: Row(
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    chapterName.toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.secondBackground,
-                    ),
-                  ),
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: AppColors.background,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Spacer(),
-            Container(
-              width: 1.5,
-              color: AppColors.textColor.withOpacity(.4),
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: SvgPicture.asset(AppVectors.icList),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _body(BuildContext context, Size size, ChapterEntity chapter) {
-    final title = chapter.title!;
-    final chapterName = chapter.name!;
-    double distanceTop = 100.0;
-    Color color = Color(int.parse(chapter.color!));
-    return SizedBox(
-      width: size.width,
-      height: size.height,
-      child: Stack(
-        children: [
-          Positioned(
-            top: distanceTop,
-            left: 0,
-            right: 0,
-            child: _lessonSections(context, size, title, color),
-          ),
-          _header(title, chapterName, color),
-        ],
-      ),
-    );
-  }
-
-  Widget _lessonSections(
-      BuildContext context, Size size, String title, Color color) {
-    return SizedBox(
-      width: size.width,
-      height: size.height,
-      child: _section(context, title, color, size),
-    );
-  }
-
-  Widget _section(BuildContext context, String title, Color color, Size size) {
-    return Column(
+  @override
+  Widget build(BuildContext context) {
+    Color color = Color(int.parse(data.color!));
+    final size = MediaQuery.of(context).size;
+    return Stack(
       children: [
-        const SizedBox(
-          height: 16,
-        ),
-        Row(
+        Column(
           children: [
-            const Expanded(
-              child: Divider(
-                color: AppColors.textSecondColor,
-              ),
+            Row(
+              children: [
+                const Expanded(
+                  child: Divider(
+                    color: AppColors.textSecondColor,
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  data.title!,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: AppColors.textSecondColor,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Expanded(
+                  child: Divider(
+                    color: AppColors.textSecondColor,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
-              width: 8,
+              height: 24,
             ),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 20,
-                color: AppColors.textSecondColor,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            const Expanded(
-              child: Divider(
-                color: AppColors.textSecondColor,
+            ...List.generate(
+              data.lessonIds!.length,
+              (index) => Container(
+                margin: EdgeInsets.only(
+                  bottom: (index != 8) ? 24 : 16.0,
+                  left: _marginLeft(index),
+                  right: _marginRight(index),
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(36.0),
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 6,
+                      color: borderColor(color, .1),
+                    ),
+                  ),
+                ),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: color,
+                    alignment: Alignment.center,
+                    elevation: 0,
+                    fixedSize: const Size(64, 54),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    padding: EdgeInsets.zero,
+                    minimumSize: Size.zero,
+                  ),
+                  child: SvgPicture.asset(
+                    AppVectors.icStar,
+                  ),
+                ),
               ),
             ),
           ],
         ),
-        ...List.generate(
-          9,
-          (index) => CircleButton(
-            image: (index % 2 == 0) ? AppVectors.icStar : AppVectors.icBook,
-            callback: () {
-              AppRoute.pushBottomToTop(
-                context,
-                const QuestionAnswerPage(),
-              );
-            },
-            color: (index != 0) ? AppColors.textSecondColor : color,
-            index: index,
+        Positioned(
+          left: 32,
+          top: size.height / 5,
+          child: SvgPicture.network(
+            data.image!,
+            width: 164,
+            height: 164,
           ),
         ),
       ],
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return BlocProvider(
-      create: (_) => GenerateDataCubit()
-        ..getData<ChapterEntity>(sl<GetChapterById>(), params: chapterId),
-      child: BlocBuilder<GenerateDataCubit, GenerateDataState>(
-        builder: (context, state) {
-          if (state is DataLoading) {
-            return const AppLoading();
-          }
-          if (state is DataLoaded) {
-            ChapterEntity chapter = state.data;
-            return _body(context, size, chapter);
-          }
-          return const FailedPage();
-        },
-      ),
-    );
+  double _marginLeft(int index) {
+    int pos = index % 9;
+    double margin = 72.0;
+    if (pos == 1) {
+      return margin;
+    } else if (pos == 2) {
+      return margin * 2;
+    } else if (pos == 3) {
+      return margin;
+    } else {
+      return 0.0;
+    }
+  }
+
+  double _marginRight(int index) {
+    int pos = index % 9;
+    double margin = 72.0;
+    if (pos == 5) {
+      return margin;
+    } else if (pos == 6) {
+      return margin * 2;
+    } else if (pos == 7) {
+      return margin;
+    } else {
+      return 0.0;
+    }
   }
 }

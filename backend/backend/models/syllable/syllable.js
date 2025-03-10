@@ -9,26 +9,18 @@ const syllableSchema = mongoose.Schema({
   example: {
     type: String,
     required: true,
-    unique: true,
   },
   audio: {
     type: String,
-    required: true,
-    unique: true,
   },
   video: {
     type: String,
-    required: true,
-    unique: true,
   },
   image: {
     type: String,
-    required: true,
-    unique: true,
   },
   manual: {
     type: String,
-    required: true,
   },
   questionId: [
     {

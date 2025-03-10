@@ -77,4 +77,11 @@ class AppTexts {
 
   //lesson
   static const String tvLessonTitle = 'Khóa học ';
+
+  // pronounces
+  static const String tvPronounceTitle = 'Cùng học phát âm tiếng Anh\nnào!';
+  static const String tvPronounceIntro =
+      'Tập nghe và học phát âm các âm trong\ntiếng Anh';
+  static const String tvVowel = 'Nguyên âm';
+  static const String tvConsonant = 'Phụ âm';
 }

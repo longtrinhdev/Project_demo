@@ -12,8 +12,7 @@ class ChapterMapper {
       isCompleted: chapterModel.isCompleted,
       isUnlocked: chapterModel.isUnlocked,
       title: chapterModel.title,
-      lessons: chapterModel.lessons,
-      chapterContent: chapterModel.chapterContent,
+      sectionIds: chapterModel.sectionIds,
     );
   }
 }

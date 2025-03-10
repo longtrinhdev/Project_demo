@@ -1,5 +1,6 @@
 import 'package:doulingo/common/bloc/generate_data_cubit.dart';
 import 'package:doulingo/common/bloc/generate_data_state.dart';
+import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/loading/loading.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
@@ -38,6 +39,64 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _pageController = PageController();
+  }
+
+  PreferredSizeWidget _appBar(Size size, String imageCourse) {
+    return AppbarBase(
+      backgroundColor: AppColors.background,
+      hideBack: true,
+      action: SizedBox(
+        width: size.width,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 8,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SvgPicture.network(
+                  imageCourse,
+                  width: 27,
+                  height: 27,
+                ),
+                _itemTopBar(AppVectors.icFire, '${widget.learnDays!.length}',
+                    AppColors.colorStreak),
+                _itemTopBar(AppVectors.icScore, '${widget.score}',
+                    AppColors.textThirdColor),
+                _itemTopBar(AppVectors.icHeart, '5', AppColors.colorHeart),
+              ],
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _itemTopBar(String icon, String title, Color color) {
+    return Row(
+      children: [
+        SvgPicture.asset(
+          icon,
+          width: 27,
+          height: 27,
+        ),
+        const SizedBox(
+          width: 4,
+        ),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w900,
+            color: color,
+          ),
+        )
+      ],
+    );
   }
 
   Widget _bottom(Size size) {
@@ -101,19 +160,18 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _pageView(String imageCourse, String courseName) {
+  Widget _pageView(String courseName) {
     return PageView(
       controller: _pageController,
       physics: const NeverScrollableScrollPhysics(),
       children: [
         HomePage(
-          imageCourse: imageCourse,
           courseName: courseName,
           courseId: widget.courseId,
-          learnDays: widget.learnDays,
-          score: widget.score,
         ),
-        const PronouncePage(),
+        PronouncePage(
+          idCourse: widget.courseId,
+        ),
         const PracticePage(),
         const RankPage(),
         const ProfilePage(),
@@ -136,7 +194,10 @@ class _MainPageState extends State<MainPage> {
           if (state is DataLoaded) {
             LanguageEntity language = state.data;
             return Scaffold(
-              body: _pageView(language.image!, language.language!),
+              appBar: (indexSelected != 3 && indexSelected != 4)
+                  ? _appBar(size, language.image!)
+                  : null,
+              body: _pageView(language.language!),
               bottomNavigationBar: _bottom(size),
             );
           }

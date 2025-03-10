@@ -40,6 +40,7 @@ class ChaptersWidget extends StatelessWidget {
               LessonPages(
                 title: courseTitle,
                 chapterId: chapter.id!,
+                nameChapter: chapter.name!,
               ),
             );
           },

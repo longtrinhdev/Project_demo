@@ -18,6 +18,13 @@ router.get(
   middleware.verifyToken,
   syllableController.getAllConsonantByCourseId
 );
+
+router.get(
+  "/all/:id",
+  middleware.verifyToken,
+  syllableController.getAllSyllableByCourseId
+);
+
 router.get("/:id", middleware.verifyToken, syllableController.getSyllableById);
 router.put(
   "/:id",

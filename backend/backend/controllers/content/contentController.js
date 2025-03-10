@@ -1,65 +1,65 @@
-const Content = require("../../models/content/chapterContent");
-const Chapter = require("../../models/chapter/chapter");
+const Content = require("../../models/content/sectionContent");
+const Section = require("../../models/section/section");
 
-const chapterController = {
-  // ?add content to chapter
-  addContentChapter: async (req, res) => {
+const contentController = {
+  // ?add content to section
+  addContent: async (req, res) => {
     try {
-      const newContentChapter = new Content(req.body);
-      const saveContentChapter = await newContentChapter.save();
-      await Chapter.findByIdAndUpdate(req.body.chapterId, {
-        $push: { chapterContent: saveContentChapter._id },
+      const newContent = new Content(req.body);
+      const saveContent = await newContent.save();
+      await Section.findByIdAndUpdate(req.body.sectionId, {
+        $push: { sectionContent: saveContent._id },
       });
       return res
         .status(200)
-        .json({ message: "Add content to chapter successfully! " });
+        .json({ message: "Add content to section successfully! " });
     } catch (error) {
       return res.status(500).json({ message: "Internal Server Error" });
     }
   },
 
-  // ?get all content in chapter
-  getAllContentChapter: async (req, res) => {
+  // ?get all content in section
+  getAllContent: async (req, res) => {
     try {
-      const chapter = await Chapter.findById(req.params.id);
-      if (!chapter) {
-        return res.status(404).json({ message: "Chapter not found" });
+      const section = await Section.findById(req.params.id);
+      if (!section) {
+        return res.status(404).json({ message: "Section not found" });
       }
-      const contentChapter = await Content.find({
-        _id: { $in: chapter.chapterContent },
+      const contentSection = await Content.find({
+        _id: { $in: section.sectionContent },
       });
-      return res.status(200).json(contentChapter);
+      return res.status(200).json(contentSection);
     } catch (error) {
       return res.status(500).json({ message: "Internal Server Error" });
     }
   },
 
   // ? update content in chapter
-  updateContentChapter: async (req, res) => {
+  updateContent: async (req, res) => {
     try {
-      const contentChapter = await Content.findByIdAndUpdate(
+      const contentSection = await Content.findByIdAndUpdate(
         req.params.id,
         req.body,
         { new: true }
       );
-      if (!contentChapter) {
+      if (!contentSection) {
         return res.status(404).json({ message: "Content not found" });
       }
-      return res.status(200).json(contentChapter);
+      return res.status(200).json(contentSection);
     } catch (error) {
       return res.status(500).json({ message: "Internal Server Error" });
     }
   },
 
-  // ? delete content in chapter
-  deleteContentChapter: async (req, res) => {
+  // ? delete content in section
+  deleteContent: async (req, res) => {
     try {
-      const contentChapter = await Content.findByIdAndDelete(req.params.id);
-      if (!contentChapter) {
+      const contentSection = await Content.findByIdAndDelete(req.params.id);
+      if (!contentSection) {
         return res.status(404).json({ message: "Content not found" });
       }
-      await Chapter.findByIdAndUpdate(req.body.chapterId, {
-        $pull: { chapterContent: req.params.id },
+      await Section.findByIdAndUpdate(req.body.sectionId, {
+        $pull: { sectionContent: req.params.id },
       });
       return res
         .status(200)
@@ -71,4 +71,4 @@ const chapterController = {
 };
 
 // export
-module.exports = chapterController;
+module.exports = contentController;

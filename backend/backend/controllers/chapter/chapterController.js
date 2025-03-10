@@ -1,7 +1,7 @@
 const Course = require("../../models/course/course");
 const Chapter = require("../../models/chapter/chapter");
 
-const courseController = {
+const chapterController = {
   // ? add chapter
   addChapter: async (req, res) => {
     try {
@@ -80,4 +80,4 @@ const courseController = {
 };
 
 //export
-module.exports = courseController;
+module.exports = chapterController;

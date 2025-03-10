@@ -7,8 +7,7 @@ class ChapterEntity {
   final bool? isUnlocked;
   final String? color;
   final dynamic courseId;
-  final List<dynamic>? chapterContent;
-  final List<dynamic>? lessons;
+  final List<dynamic>? sectionIds;
 
   ChapterEntity({
     this.id,
@@ -19,7 +18,6 @@ class ChapterEntity {
     this.isUnlocked,
     this.color,
     this.courseId,
-    this.chapterContent,
-    this.lessons,
+    this.sectionIds,
   });
 }

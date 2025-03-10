@@ -7,8 +7,7 @@ class ChapterModel {
   final bool? isUnlocked;
   final String? color;
   final dynamic courseId;
-  final List<dynamic>? chapterContent;
-  final List<dynamic>? lessons;
+  final List<dynamic>? sectionIds;
 
   ChapterModel({
     this.id,
@@ -19,8 +18,7 @@ class ChapterModel {
     this.isUnlocked,
     this.color,
     this.courseId,
-    this.chapterContent,
-    this.lessons,
+    this.sectionIds,
   });
 
   factory ChapterModel.toJson(Map<String, dynamic> json) {
@@ -33,8 +31,7 @@ class ChapterModel {
       isUnlocked: json['isUnlocked'],
       color: json['color'],
       courseId: json['courseId'],
-      chapterContent: json['chapterContent'],
-      lessons: json['lessons'],
+      sectionIds: json['sectionIds'],
     );
   }
 }

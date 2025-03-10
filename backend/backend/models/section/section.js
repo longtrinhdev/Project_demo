@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 
-const chapterSchema = mongoose.Schema(
+const sectionSchema = mongoose.Schema(
   {
-    avatar: {
+    image: {
       type: String,
       required: true,
+      unique: true,
     },
     name: {
       type: String,
@@ -16,34 +17,31 @@ const chapterSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    isCompleted: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    isUnlocked: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
     color: {
       type: String,
       required: true,
     },
-    courseId: {
+    chapterId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Course",
+      ref: "Chapter",
     },
-    sectionIds: [
+    lessonIds: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Section",
+        ref: "Lesson",
+      },
+    ],
+    sectionContent: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Content",
       },
     ],
   },
   { timestamp: true }
 );
 
-// export
-const Chapter = mongoose.model("Chapter", chapterSchema);
-module.exports = Chapter;
+//export
+
+const Section = mongoose.model("Section", sectionSchema);
+module.exports = Section;

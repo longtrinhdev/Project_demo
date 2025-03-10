@@ -5,22 +5,22 @@ const router = require("express").Router();
 router.post(
   "/add",
   middleware.verifyToken,
-  contentChapterController.addContentChapter
+  contentChapterController.addContent
 );
 router.get(
   "/all/:id",
   middleware.verifyToken,
-  contentChapterController.getAllContentChapter
+  contentChapterController.getAllContent
 );
 router.put(
   "/:id",
   middleware.verifyToken,
-  contentChapterController.updateContentChapter
+  contentChapterController.updateContent
 );
 router.delete(
   "/:id",
   middleware.verifyToken,
-  contentChapterController.deleteContentChapter
+  contentChapterController.deleteContent
 );
 
 // export

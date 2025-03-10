@@ -10,6 +10,7 @@ const contentChapterRoute = require("../backend/routes/content/contentRoute");
 const lessonRoute = require("../backend/routes/lesson/lessonRoute");
 const syllableRoute = require("../backend/routes/syllable/syllableRoute");
 const questionRoute = require("../backend/routes/question/questionRoute");
+const sectionRoute = require("../backend/routes/section/sectionRoute");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/api/v1/content", contentChapterRoute);
 app.use("/api/v1/lesson", lessonRoute);
 app.use("/api/v1/syllable", syllableRoute);
 app.use("/api/v1/question", questionRoute);
+app.use("/api/v1/section", sectionRoute);
 
 app.listen(process.env.PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${process.env.PORT}`);

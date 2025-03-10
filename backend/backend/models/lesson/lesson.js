@@ -2,16 +2,15 @@ const mongoose = require("mongoose");
 
 const lessonSchema = mongoose.Schema(
   {
-    avatar: {
-      type: String,
-      required: true,
-    },
     title: {
       type: String,
       required: true,
-      unique: true,
     },
     isCompleted: {
+      type: Boolean,
+      default: false,
+    },
+    isUnlocked: {
       type: Boolean,
       default: false,
     },
@@ -21,9 +20,9 @@ const lessonSchema = mongoose.Schema(
         ref: "Question",
       },
     ],
-    chapterId: {
+    sectionId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Chapter",
+      ref: "Section",
     },
   },
   { timestamp: true }
