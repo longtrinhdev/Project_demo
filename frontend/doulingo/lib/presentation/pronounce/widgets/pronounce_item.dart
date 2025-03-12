@@ -1,4 +1,3 @@
-import 'package:doulingo/common/widget/item_view/item_view.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/domain/pronounce/entities/pronounce.dart';
@@ -12,41 +11,38 @@ class PronounceItem extends StatelessWidget {
   });
 
   Widget _body(PronounceEntity pronounceEntity) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _text(
-            20,
-            pronounceEntity.word!,
-            FontWeight.w600,
-            AppColors.textColor,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        _text(
+          20,
+          pronounceEntity.word!,
+          FontWeight.w600,
+          AppColors.textColor,
+        ),
+        const SizedBox(
+          height: 4,
+        ),
+        _text(
+          19,
+          pronounceEntity.example!,
+          FontWeight.w800,
+          AppColors.textSecondColor,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        SizedBox(
+          height: 10,
+          child: LinearProgressIndicator(
+            borderRadius: BorderRadius.circular(16.0),
+            backgroundColor: AppColors.unselect,
+            color: AppColors.secondColor,
+            value: 0,
           ),
-          const SizedBox(
-            height: 4,
-          ),
-          _text(
-            19,
-            pronounceEntity.example!,
-            FontWeight.w800,
-            AppColors.textSecondColor,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            height: 10,
-            child: LinearProgressIndicator(
-              borderRadius: BorderRadius.circular(16.0),
-              backgroundColor: AppColors.unselect,
-              color: AppColors.secondColor,
-              value: 0,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -93,6 +89,38 @@ class PronounceItem extends StatelessWidget {
     );
   }
 
+  Widget _item(Size size, PronounceEntity pronounceEntity) {
+    return Container(
+      width: size.width / 5,
+      height: 64,
+      margin: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.0),
+        color: AppColors.background,
+        border: const Border(
+          bottom: BorderSide(
+            color: AppColors.unselect,
+            width: 4,
+          ),
+          top: BorderSide(
+            color: AppColors.unselect,
+            width: 1.5,
+          ),
+          left: BorderSide(
+            color: AppColors.unselect,
+            width: 1.5,
+          ),
+          right: BorderSide(
+            color: AppColors.unselect,
+            width: 1.5,
+          ),
+        ),
+      ),
+      child: _body(pronounceEntity),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -115,16 +143,7 @@ class PronounceItem extends StatelessWidget {
                   crossAxisCount: 3, childAspectRatio: 1),
               itemBuilder: (context, index) {
                 final pronounceEntity = list[index];
-                return Container(
-                  width: 72,
-                  height: 64,
-                  margin: const EdgeInsets.all(8.0),
-                  child: ItemView(
-                    isSelected: false,
-                    backgroundColor: AppColors.background,
-                    title: _body(pronounceEntity),
-                  ),
-                );
+                return _item(size, pronounceEntity);
               },
             ),
           ),

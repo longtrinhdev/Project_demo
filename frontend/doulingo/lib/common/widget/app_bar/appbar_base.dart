@@ -32,6 +32,7 @@ class AppbarBase extends StatelessWidget implements PreferredSizeWidget {
       leading: hideBack == true
           ? null
           : IconButton(
+              key: const ValueKey('_back'),
               onPressed: () {
                 AppRoute.pop(context);
               },

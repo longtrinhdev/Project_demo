@@ -12,6 +12,7 @@ import 'package:doulingo/presentation/auth/forgot_password/forgot_password.dart'
 import 'package:doulingo/presentation/main/pages/main_page.dart';
 import 'package:doulingo/service_locators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SigninPage extends StatefulWidget {
@@ -141,6 +142,13 @@ class _SigninPageState extends State<SigninPage> {
     );
   }
 
+  Widget _loading() {
+    return const SpinKitThreeBounce(
+      color: AppColors.unselect,
+      size: 30,
+    );
+  }
+
   Widget _buttonSignIn() {
     bool checkButton = oneField && twoField;
     return BaseButton(
@@ -157,13 +165,13 @@ class _SigninPageState extends State<SigninPage> {
               );
               final courseId = await _getValueByKey('language');
               return data.fold(
-                (l) {
+                (error) {
                   setState(() {
-                    message = l;
+                    message = error;
                   });
                 },
-                (r) {
-                  UserEntity userEntity = r as UserEntity;
+                (data) {
+                  UserEntity userEntity = data as UserEntity;
                   AppRoute.pushAndRemoveBottomToTop(
                     context,
                     MainPage(
@@ -243,6 +251,7 @@ class _SigninPageState extends State<SigninPage> {
     );
   }
 
+  // signin with google
   Widget _buttonSignOr(Widget widget, bool checkIcon) {
     return BaseButton(
       onPressed: () {},
@@ -318,45 +327,47 @@ class _SigninPageState extends State<SigninPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: _appbar(),
-      body: Container(
-        width: size.width,
-        height: size.height,
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            (widget.checkUser == true)
-                ? _messageCheckAccount()
-                : const SizedBox(),
-            (widget.checkUser == true)
-                ? const SizedBox(
-                    height: 16,
-                  )
-                : const SizedBox(),
-            _enterField(),
-            const SizedBox(
-              height: 8,
-            ),
-            _message(size),
-            const SizedBox(
-              height: 16,
-            ),
-            _buttonSignIn(),
-            const SizedBox(
-              height: 24,
-            ),
-            _forgotPassword(),
-            const Spacer(),
-            (widget.checkUser == false) ? __signInOr() : const SizedBox(),
-            (widget.checkUser == false)
-                ? const SizedBox(height: 16)
-                : const SizedBox(),
-            (widget.checkUser == false) ? _signInOr() : const SizedBox(),
-            (widget.checkUser == false)
-                ? const SizedBox(height: 32)
-                : const SizedBox(),
-          ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          width: size.width,
+          height: size.height,
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              (widget.checkUser == true)
+                  ? _messageCheckAccount()
+                  : const SizedBox(),
+              (widget.checkUser == true)
+                  ? const SizedBox(
+                      height: 16,
+                    )
+                  : const SizedBox(),
+              _enterField(),
+              const SizedBox(
+                height: 8,
+              ),
+              _message(size),
+              const SizedBox(
+                height: 16,
+              ),
+              _buttonSignIn(),
+              const SizedBox(
+                height: 24,
+              ),
+              _forgotPassword(),
+              const Spacer(),
+              (widget.checkUser == false) ? __signInOr() : const SizedBox(),
+              (widget.checkUser == false)
+                  ? const SizedBox(height: 16)
+                  : const SizedBox(),
+              (widget.checkUser == false) ? _signInOr() : const SizedBox(),
+              (widget.checkUser == false)
+                  ? const SizedBox(height: 32)
+                  : const SizedBox(),
+            ],
+          ),
         ),
       ),
     );

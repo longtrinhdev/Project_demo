@@ -35,7 +35,7 @@ class AuthServiceImpl extends AuthService {
       );
       return Right(responseData);
     } on DioException catch (error) {
-      return Left(error.response!.data['message']);
+      return Left(error.message);
     }
   }
 
@@ -48,7 +48,7 @@ class AuthServiceImpl extends AuthService {
       );
       return Right(responseData.data);
     } on DioException catch (error) {
-      return Left(error.response!.data['message']);
+      return Left(error.message);
     }
   }
 
@@ -61,7 +61,7 @@ class AuthServiceImpl extends AuthService {
       );
       return Right(responseData);
     } on DioException catch (error) {
-      return Left(error.response!.data['message']);
+      return Left(error.message);
     }
   }
 }

@@ -34,44 +34,47 @@ import 'package:get_it/get_it.dart';
 final sl = GetIt.instance;
 
 void setUpServiceLocator() {
-  sl.registerSingleton<DioClient>(DioClient());
+  sl.registerLazySingleton<DioClient>(() => DioClient());
 
   //Services
-  sl.registerSingleton<AuthService>(AuthServiceImpl());
-  sl.registerSingleton<LocalDataService>(LocalDataServiceImpl());
-  sl.registerSingleton<LanguageService>(LanguageServiceImpl());
-  sl.registerSingleton<ChapterService>(ChapterServiceImpl());
-  sl.registerSingleton<SectionService>(SectionServiceImpl());
-  sl.registerSingleton<PronounceService>(PronounceServiceImpl());
+
+  sl.registerLazySingleton<AuthService>(() => AuthServiceImpl());
+  sl.registerLazySingleton<LocalDataService>(() => LocalDataServiceImpl());
+  sl.registerLazySingleton<LanguageService>(() => LanguageServiceImpl());
+  sl.registerLazySingleton<ChapterService>(() => ChapterServiceImpl());
+  sl.registerLazySingleton<SectionService>(() => SectionServiceImpl());
+  sl.registerLazySingleton<PronounceService>(() => PronounceServiceImpl());
 
   // Repository
-  sl.registerSingleton<AuthRepo>(AuthRepoImpl());
-  sl.registerSingleton<LocalDataRepo>(LocalDataRepoImpl());
-  sl.registerSingleton<LanguageRepository>(LanguageRepoImpl());
-  sl.registerSingleton<ChapterRepo>(ChapterRepoImpl());
-  sl.registerSingleton<SectionRepository>(SectionRepoImpl());
-  sl.registerSingleton<PronounceRepository>(PronounceRepoImpl());
+  sl.registerLazySingleton<AuthRepo>(() => AuthRepoImpl());
+  sl.registerLazySingleton<LocalDataRepo>(() => LocalDataRepoImpl());
+  sl.registerLazySingleton<LanguageRepository>(() => LanguageRepoImpl());
+  sl.registerLazySingleton<ChapterRepo>(() => ChapterRepoImpl());
+  sl.registerLazySingleton<SectionRepository>(() => SectionRepoImpl());
+  sl.registerLazySingleton<PronounceRepository>(() => PronounceRepoImpl());
 
   // Use case
-  sl.registerSingleton<ForgotPwUseCase>(ForgotPwUseCase());
-  sl.registerSingleton<SigninUseCase>(SigninUseCase());
-  sl.registerSingleton<SignupUseCase>(SignupUseCase());
-  sl.registerSingleton<CheckUserUseCase>(CheckUserUseCase());
-  sl.registerSingleton<GetDataUseCase>(GetDataUseCase());
-  sl.registerSingleton<SetDataUseCase>(SetDataUseCase());
-  sl.registerSingleton<RemoveDataUseCase>(RemoveDataUseCase());
+  sl.registerLazySingleton<ForgotPwUseCase>(() => ForgotPwUseCase());
+  sl.registerLazySingleton<SigninUseCase>(() => SigninUseCase());
+  sl.registerLazySingleton<SignupUseCase>(() => SignupUseCase());
+  sl.registerLazySingleton<CheckUserUseCase>(() => CheckUserUseCase());
+  sl.registerLazySingleton<GetDataUseCase>(() => GetDataUseCase());
+  sl.registerLazySingleton<SetDataUseCase>(() => SetDataUseCase());
+  sl.registerLazySingleton<RemoveDataUseCase>(() => RemoveDataUseCase());
 
   // use case language
-  sl.registerSingleton<GetAllLanguageUseCase>(GetAllLanguageUseCase());
-  sl.registerSingleton<GetLanguageUseCase>(GetLanguageUseCase());
+  sl.registerLazySingleton<GetAllLanguageUseCase>(
+      () => GetAllLanguageUseCase());
+  sl.registerLazySingleton<GetLanguageUseCase>(() => GetLanguageUseCase());
 
   // use case chapter
-  sl.registerSingleton<GetAllChapterUseCase>(GetAllChapterUseCase());
-  sl.registerSingleton<GetChapterById>(GetChapterById());
+  sl.registerLazySingleton<GetAllChapterUseCase>(() => GetAllChapterUseCase());
+  sl.registerLazySingleton<GetChapterById>(() => GetChapterById());
 
   // use case section
-  sl.registerSingleton<GetAllUseCase>(GetAllUseCase());
+  sl.registerLazySingleton<GetAllUseCase>(() => GetAllUseCase());
 
   // syllables
-  sl.registerSingleton<GetAllPronounceUseCase>(GetAllPronounceUseCase());
+  sl.registerLazySingleton<GetAllPronounceUseCase>(
+      () => GetAllPronounceUseCase());
 }

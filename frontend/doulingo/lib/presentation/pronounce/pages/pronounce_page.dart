@@ -25,7 +25,7 @@ class PronouncePage extends StatefulWidget {
 class _PronouncePageState extends State<PronouncePage> {
   Widget _success(Size size, List<PronounceEntity> list) {
     List<PronounceEntity> vowels = list.sublist(0, 15);
-    List<PronounceEntity> consonants = list.sublist(15, 39);
+    //List<PronounceEntity> consonants = list.sublist(15, 39);
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -53,10 +53,9 @@ class _PronouncePageState extends State<PronouncePage> {
                 AppColors.textColor.withOpacity(.5),
               ),
               ...List.generate(
-                2,
+                1,
                 (index) => Expanded(
-                  child:
-                      PronounceItem(list: (index == 1) ? vowels : consonants),
+                  child: PronounceItem(list: vowels),
                 ),
               ),
             ],

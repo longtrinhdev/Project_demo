@@ -19,7 +19,7 @@ class LanguageServiceImpl extends LanguageService {
       );
       return Right(response.data);
     } on DioException catch (error) {
-      return Left(error.response!.data['message']);
+      return Left(error.message);
     }
   }
 
@@ -41,7 +41,7 @@ class LanguageServiceImpl extends LanguageService {
       );
       return Right(response.data);
     } on DioException catch (error) {
-      return Left(error.response!.data['message']);
+      return Left(error.message);
     }
   }
 }
