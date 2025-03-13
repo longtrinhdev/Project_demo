@@ -34,6 +34,7 @@ class ChaptersWidget extends StatelessWidget {
         final chapter = chapters[index];
         Color colorCode = Color(int.parse(chapter.color!));
         return GestureDetector(
+          key: const ValueKey('item_chapter'),
           onTap: () {
             AppRoute.pushBottomToTop(
               context,
@@ -161,6 +162,7 @@ class ChaptersWidget extends StatelessWidget {
 
   Widget _lock() {
     return Image.asset(
+      key: const ValueKey('img_lock'),
       AppImages.imgLock,
       color: AppColors.textSecondColor.withOpacity(.8),
     );

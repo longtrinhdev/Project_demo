@@ -101,6 +101,7 @@ class _MainPageState extends State<MainPage> {
 
   Widget _bottom(Size size) {
     return Container(
+      key: const ValueKey('bottom_bar'),
       width: size.width,
       height: 100,
       decoration: BoxDecoration(

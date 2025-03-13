@@ -20,6 +20,7 @@ class BaseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
+      key: const ValueKey('base_button'),
       onTap: onPressed,
       child: Container(
         width: size.width,
