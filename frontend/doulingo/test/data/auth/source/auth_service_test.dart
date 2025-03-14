@@ -60,8 +60,9 @@ void main() {
           response: Response(
             requestOptions: RequestOptions(
               path: ApiUrls.signin,
-              data: {'message': 'Invalid credentials'},
             ),
+            data: {'message': 'Invalid credentials'},
+            statusCode: 500,
           ),
         ),
       );

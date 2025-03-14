@@ -7,29 +7,34 @@ import 'package:doulingo/data/auth/models/signin_req.dart';
 import 'package:doulingo/domain/auth/entities/user.dart';
 import 'package:doulingo/domain/auth/use_case/signin_use_case.dart';
 import 'package:doulingo/presentation/auth/forgot_password/forgot_password.dart';
-import 'package:doulingo/presentation/auth/signin_page.dart';
-import 'package:doulingo/presentation/main/pages/main_page.dart';
+import 'package:doulingo/presentation/auth/signin/bloc/sign_in_cubit.dart';
+import 'package:doulingo/presentation/auth/signin/bloc/sign_in_state.dart';
+import 'package:doulingo/presentation/auth/signin/pages/signin_page.dart';
+import 'package:doulingo/presentation/auth/signin/widgets/footer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockSigninUseCase extends Mock implements SigninUseCase {}
-
 class MockGetDataUseCase extends Mock implements GetDataUseCase {}
+
+class MockSignInUseCase extends Mock implements SigninUseCase {}
 
 void main() {
   final sl = GetIt.instance;
-  late MockSigninUseCase signinUseCase;
   late MockGetDataUseCase getDataUseCase;
+  late MockSignInUseCase signInUseCase;
+  late SignInCubit cubit;
 
   setUp(() {
-    signinUseCase = MockSigninUseCase();
     getDataUseCase = MockGetDataUseCase();
-    sl.registerLazySingleton<SigninUseCase>(() => signinUseCase);
+    signInUseCase = MockSignInUseCase();
     sl.registerLazySingleton<GetDataUseCase>(() => getDataUseCase);
+    sl.registerLazySingleton<SigninUseCase>(() => signInUseCase);
     registerFallbackValue(
         SigninModel(username: 'pilong', password: '12345678'));
+    cubit = SignInCubit();
   });
 
   tearDown(() {
@@ -37,10 +42,19 @@ void main() {
   });
 
   group('UI: SignIn Page', () {
+    final user = UserEntity(
+      bio: '',
+      courseId: [''],
+      email: 'email@',
+    );
+
     Widget widgetTest(bool checkUser) {
       return MaterialApp(
-        home: SigninPage(
-          checkUser: checkUser,
+        home: BlocProvider<SignInCubit>.value(
+          value: cubit,
+          child: SigninPage(
+            checkUser: checkUser,
+          ),
         ),
       );
     }
@@ -80,20 +94,13 @@ void main() {
       expect(find.text(''), findsAtLeast(0));
     });
 
-    testWidgets('UI return data when tap button', (tester) async {
-      final mockData = UserEntity(
-        bio: 'bio',
-        courseId: ['courseId'],
-        email: 'email',
-        followers: [],
-      );
-
-      when(() => signinUseCase.call(
-            params: any(named: 'params'),
-          )).thenAnswer((_) async => Right(mockData));
+    testWidgets('UI when Load Data Success', (tester) async {
       when(() => getDataUseCase.call(
             params: any(named: 'params'),
           )).thenAnswer((_) async => 'mock_course_id');
+      when(() => signInUseCase.call(
+            params: any(named: 'params'),
+          )).thenAnswer((_) async => Right(user));
 
       await tester.pumpWidget(widgetTest(true));
       await tester.pump();
@@ -103,26 +110,21 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byType(BaseButton).at(0));
 
-      final result = await signinUseCase.call(
-        params: SigninModel(username: 'pilong', password: '12345678'),
-      );
+      await cubit.signIn('pilong', '12345678');
 
-      verify(() => signinUseCase.call(
-            params: any(named: 'params'),
-          )).called(2);
-      verify(() => getDataUseCase.call(
-            params: any(named: 'params'),
-          )).called(1);
-      expect(result.fold((error) => null, (data) => MainPage), MainPage);
+      cubit.emit(SigninSuccessState(user: user));
+
+      expect(cubit.state, isA<SigninSuccessState>());
+      expect(find.byType(FooterWidget), findsOneWidget);
     });
 
     testWidgets('UI return error message when tap button', (tester) async {
-      when(() => signinUseCase.call(
-            params: any(named: 'params'),
-          )).thenAnswer((_) async => const Left('Load Data Failed'));
       when(() => getDataUseCase.call(
             params: any(named: 'params'),
           )).thenAnswer((_) async => 'mock_course_id');
+      when(() => signInUseCase.call(
+            params: any(named: 'params'),
+          )).thenAnswer((_) async => const Left('Load Data Failure'));
 
       await tester.pumpWidget(widgetTest(true));
       await tester.pump();
@@ -132,18 +134,12 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byType(BaseButton).at(0));
 
-      final result = await signinUseCase.call(
-        params: SigninModel(username: 'pilong', password: '12345678'),
-      );
+      await cubit.signIn('pilong', '12345678');
 
-      verify(() => signinUseCase.call(
-            params: any(named: 'params'),
-          )).called(2);
-      verify(() => getDataUseCase.call(
-            params: any(named: 'params'),
-          )).called(1);
-      expect(result.fold((error) => 'Load Data Failed', (data) => null),
-          equals('Load Data Failed'));
+      cubit.emit(SigninErrorState(errorMessage: 'Load Data Failure'));
+
+      expect(cubit.state, isA<SigninErrorState>());
+      expect(find.byType(FooterWidget), findsOneWidget);
     });
 
     testWidgets('UI when forgot password', (tester) async {

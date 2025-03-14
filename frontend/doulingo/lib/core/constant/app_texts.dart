@@ -84,4 +84,12 @@ class AppTexts {
       'Tập nghe và học phát âm các âm trong\ntiếng Anh';
   static const String tvVowel = 'Nguyên âm';
   static const String tvConsonant = 'Phụ âm';
+
+  // manual
+  static const String tvManualContent1 =
+      'Khi đăng ký trên Duolingo, bạn đã đồng ý với ';
+  static const String tvManualContent2 = 'Các chính sách ';
+  static const String tvManualContent3 = 'và ';
+  static const String tvManualContent4 = 'Chính sách bảo mật ';
+  static const String tvManualContent5 = 'của chúng tôi. ';
 }

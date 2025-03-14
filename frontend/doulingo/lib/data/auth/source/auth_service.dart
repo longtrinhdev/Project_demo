@@ -7,7 +7,7 @@ import 'package:doulingo/data/auth/models/signup_req.dart';
 import 'package:doulingo/service_locators.dart';
 
 abstract class AuthService {
-  Future<bool> checkEmail(String email);
+  Future<Either> checkEmail(String email);
   Future<Either> signup(SignupModel signupReq);
   Future<Either> signin(SigninModel signinReq);
   Future<Either> forgotPW(SignupModel signupReq);
@@ -15,14 +15,14 @@ abstract class AuthService {
 
 class AuthServiceImpl extends AuthService {
   @override
-  Future<bool> checkEmail(String email) async {
+  Future<Either> checkEmail(String email) async {
     try {
       final response = await sl<DioClient>().post(ApiUrls.checkUser, data: {
         'email': email,
       });
-      return response.data;
+      return Right(response.data);
     } on DioException catch (error) {
-      throw Exception(error.message);
+      return Left(error.response!.data['message']);
     }
   }
 
@@ -48,7 +48,7 @@ class AuthServiceImpl extends AuthService {
       );
       return Right(responseData.data);
     } on DioException catch (error) {
-      return Left(error.message);
+      return Left(error.response!.data['message']);
     }
   }
 

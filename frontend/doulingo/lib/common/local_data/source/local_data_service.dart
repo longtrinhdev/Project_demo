@@ -8,24 +8,22 @@ abstract class LocalDataService {
 }
 
 class LocalDataServiceImpl extends LocalDataService {
+  final SharedPreferences sharedPreferences;
+  LocalDataServiceImpl({
+    required this.sharedPreferences,
+  });
   @override
   Future<String> getString(String key) async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    return sharedPreferences.getString(key)!;
+    return sharedPreferences.getString(key) ?? '';
   }
 
   @override
   Future<void> removeShared() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
     await sharedPreferences.clear();
   }
 
   @override
   Future<void> setString(SharedReq sharedReq) async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
     await sharedPreferences.setString(sharedReq.key, sharedReq.value);
   }
 }

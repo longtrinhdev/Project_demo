@@ -4,7 +4,7 @@ import 'package:doulingo/common/widget/tool_tip/app_tooltip.dart';
 import 'package:doulingo/core/config/assets/app_animation.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
-import 'package:doulingo/presentation/auth/signin_page.dart';
+import 'package:doulingo/presentation/auth/signin/pages/signin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

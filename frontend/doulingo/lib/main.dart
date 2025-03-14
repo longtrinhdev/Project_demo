@@ -3,9 +3,9 @@ import 'package:doulingo/presentation/splash/splash_page.dart';
 import 'package:doulingo/service_locators.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setUpServiceLocator();
+  await setUpServiceLocator();
   runApp(const MyApp());
 }
 

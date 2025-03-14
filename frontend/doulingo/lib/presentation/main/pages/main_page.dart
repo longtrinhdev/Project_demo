@@ -1,6 +1,7 @@
 import 'package:doulingo/common/bloc/generate_data_cubit.dart';
 import 'package:doulingo/common/bloc/generate_data_state.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
+import 'package:doulingo/common/widget/failed_page/failed_page.dart';
 import 'package:doulingo/common/widget/loading/loading.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
@@ -202,7 +203,7 @@ class _MainPageState extends State<MainPage> {
               bottomNavigationBar: _bottom(size),
             );
           }
-          return Container();
+          return const Scaffold(body: FailedPage());
         },
       ),
     );

@@ -5,7 +5,7 @@ import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/core/constant/app_urls.dart';
 import 'package:doulingo/presentation/collect_info/pages/welcome.dart';
-import 'package:doulingo/presentation/auth/signin_page.dart';
+import 'package:doulingo/presentation/auth/signin/pages/signin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

@@ -11,9 +11,17 @@ import 'package:doulingo/service_locators.dart';
 
 class AuthRepoImpl extends AuthRepo {
   @override
-  Future<bool> checkUser(String email) async {
+  Future<Either> checkUser(String email) async {
     final responseData = await sl<AuthService>().checkEmail(email);
-    return responseData;
+    return responseData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) {
+        final responseData = data as bool;
+        return Right(responseData);
+      },
+    );
   }
 
   @override

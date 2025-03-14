@@ -36,7 +36,6 @@ const authController = {
       });
 
       await newUser.save();
-      console.log("here");
       await User.findByIdAndUpdate(newUser._id, {
         $push: { courseId: req.body.courseId },
       });
@@ -98,6 +97,12 @@ const authController = {
 
   checkEmail: async (req, res) => {
     try {
+      const email = req.body.email;
+      const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+      if (!gmailPattern.test(email)) {
+        return res.status(400).json({ message: "Invalid email!" });
+      }
+
       const user = await User.findOne({ email: req.body.email });
       if (user) {
         return res.status(200).json(true);

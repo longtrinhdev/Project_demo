@@ -30,16 +30,18 @@ import 'package:doulingo/domain/pronounce/use_case/get_all_use_case.dart';
 import 'package:doulingo/domain/section/repositories/section_repo.dart';
 import 'package:doulingo/domain/section/use_case/get_all_use_case.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
 
-void setUpServiceLocator() {
+Future<void> setUpServiceLocator() async {
   sl.registerLazySingleton<DioClient>(() => DioClient());
 
   //Services
 
   sl.registerLazySingleton<AuthService>(() => AuthServiceImpl());
-  sl.registerLazySingleton<LocalDataService>(() => LocalDataServiceImpl());
+  sl.registerLazySingleton<LocalDataService>(
+      () => LocalDataServiceImpl(sharedPreferences: sl()));
   sl.registerLazySingleton<LanguageService>(() => LanguageServiceImpl());
   sl.registerLazySingleton<ChapterService>(() => ChapterServiceImpl());
   sl.registerLazySingleton<SectionService>(() => SectionServiceImpl());
@@ -47,7 +49,8 @@ void setUpServiceLocator() {
 
   // Repository
   sl.registerLazySingleton<AuthRepo>(() => AuthRepoImpl());
-  sl.registerLazySingleton<LocalDataRepo>(() => LocalDataRepoImpl());
+  sl.registerLazySingleton<LocalDataRepo>(
+      () => LocalDataRepoImpl(localDataService: sl()));
   sl.registerLazySingleton<LanguageRepository>(() => LanguageRepoImpl());
   sl.registerLazySingleton<ChapterRepo>(() => ChapterRepoImpl());
   sl.registerLazySingleton<SectionRepository>(() => SectionRepoImpl());
@@ -77,4 +80,9 @@ void setUpServiceLocator() {
   // syllables
   sl.registerLazySingleton<GetAllPronounceUseCase>(
       () => GetAllPronounceUseCase());
+
+  // External
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
+  sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 }
