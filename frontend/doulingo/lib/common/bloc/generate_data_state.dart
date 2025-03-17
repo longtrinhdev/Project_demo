@@ -2,6 +2,11 @@ import 'package:equatable/equatable.dart';
 
 abstract class GenerateDataState extends Equatable {}
 
+class InitialState extends GenerateDataState {
+  @override
+  List<Object?> get props => [];
+}
+
 class DataLoading extends GenerateDataState {
   @override
   List<Object?> get props => [];

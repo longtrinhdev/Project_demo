@@ -1,3 +1,5 @@
+import 'package:doulingo/common/bloc/generate_cubit.dart';
+import 'package:doulingo/common/bloc/generate_data_state.dart';
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
@@ -8,6 +10,8 @@ import 'package:doulingo/domain/auth/use_case/forgot_pw.dart';
 import 'package:doulingo/presentation/auth/register/pages/signup_success_page.dart';
 import 'package:doulingo/service_locators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -19,12 +23,89 @@ class ForgotPassword extends StatefulWidget {
 class _ForgotPasswordState extends State<ForgotPassword> {
   final TextEditingController _controllerEmail = TextEditingController();
   bool _checkHidden = false;
+  bool _checkMessage = false;
   String message = AppTexts.tvPasswordContent;
 
   @override
   void dispose() {
     super.dispose();
     _controllerEmail.dispose();
+  }
+
+  Widget _loading() {
+    return const SpinKitThreeBounce(
+      color: AppColors.background,
+      size: 30,
+    );
+  }
+
+  Widget _initial() {
+    return Text(
+      AppTexts.tvContinue,
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w800,
+        color: _checkHidden ? AppColors.background : AppColors.textSecondColor,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: _appBar(),
+      body: BlocProvider<GenerateCubit>(
+        create: (_) => GenerateCubit(),
+        child: BlocListener<GenerateCubit, GenerateDataState>(
+          listener: (context, state) {
+            if (state is DataLoaded) {
+              AppRoute.pushAndRemoveLeftToRight(
+                context,
+                const SignupSuccessPage(
+                  text: AppTexts.tvSignupSuccessContent,
+                ),
+              );
+            } else if (state is DataLoadedFailure) {
+              setState(() {
+                message = state.errorMessage;
+                _checkMessage = true;
+              });
+            }
+          },
+          child: Container(
+            width: size.width,
+            height: size.height,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                _textTitle(
+                  AppTexts.tvForgotPassword,
+                  true,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                _enterField(_controllerEmail),
+                const SizedBox(
+                  height: 8,
+                ),
+                _textTitle(
+                  message,
+                  false,
+                ),
+                const Spacer(),
+                _button(),
+                const SizedBox(
+                  height: 24,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   PreferredSizeWidget _appBar() {
@@ -42,7 +123,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           style: TextStyle(
             fontSize: checkTitle ? 22 : 16,
             fontWeight: checkTitle ? FontWeight.w900 : FontWeight.w800,
-            color: checkTitle ? AppColors.textColor : AppColors.textSecondColor,
+            color: checkTitle
+                ? AppColors.textColor
+                : (_checkMessage)
+                    ? Colors.red
+                    : AppColors.textSecondColor,
           ),
         ),
       ],
@@ -83,79 +168,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
   Widget _button() {
-    return BaseButton(
-      onPressed: () async {
-        final data = await sl<ForgotPwUseCase>().call(
-          params: SignupModel(
-            email: _controllerEmail.text,
-          ),
-        );
-        data.fold(
-          (l) {
-            setState(() {
-              message = l;
-            });
-          },
-          (r) {
-            AppRoute.pushAndRemoveLeftToRight(
-              context,
-              const SignupSuccessPage(
-                text: AppTexts.tvSignupSuccessContent,
-              ),
-            );
-          },
+    return BlocBuilder<GenerateCubit, GenerateDataState>(
+      builder: (context, state) {
+        return BaseButton(
+          onPressed: (_checkHidden == true)
+              ? () async {
+                  context.read<GenerateCubit>().getData(sl<ForgotPwUseCase>(),
+                      params: SignupModel(email: _controllerEmail.text));
+                }
+              : () {},
+          backgroundColor:
+              _checkHidden ? AppColors.textThirdColor : AppColors.unselect,
+          checkBorder: _checkHidden ? true : false,
+          widget: (state is DataLoading) ? _loading() : _initial(),
         );
       },
-      backgroundColor:
-          _checkHidden ? AppColors.textThirdColor : AppColors.unselect,
-      checkBorder: _checkHidden ? true : false,
-      widget: Text(
-        AppTexts.tvContinue,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w800,
-          color:
-              _checkHidden ? AppColors.background : AppColors.textSecondColor,
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: _appBar(),
-      body: Container(
-        width: size.width,
-        height: size.height,
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            _textTitle(
-              AppTexts.tvForgotPassword,
-              true,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            _enterField(_controllerEmail),
-            const SizedBox(
-              height: 8,
-            ),
-            _textTitle(
-              AppTexts.tvPasswordContent,
-              false,
-            ),
-            const Spacer(),
-            _button(),
-            const SizedBox(
-              height: 24,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

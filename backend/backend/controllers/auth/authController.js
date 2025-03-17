@@ -17,11 +17,7 @@ const authController = {
     try {
       const users = await User.findOne({ username: req.body.username });
       if (users) {
-        return res.status(403).json({ message: "User Exists" });
-      }
-      const emailUser = await User.findOne({ email: req.body.email });
-      if (emailUser) {
-        return res.status(403).json({ message: "Email Exists" });
+        return res.status(403).json({ message: "Username exist! " });
       }
 
       const salt = await bcrypt.genSalt(10);
@@ -40,7 +36,7 @@ const authController = {
         $push: { courseId: req.body.courseId },
       });
 
-      return res.status(200).json({ message: "Register Successful" });
+      return res.status(200).json(true);
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: error });

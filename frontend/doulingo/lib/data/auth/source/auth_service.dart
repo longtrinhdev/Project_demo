@@ -33,9 +33,9 @@ class AuthServiceImpl extends AuthService {
         ApiUrls.register,
         data: signupReq.toMap(),
       );
-      return Right(responseData);
+      return Right(responseData.data);
     } on DioException catch (error) {
-      return Left(error.message);
+      return Left(error.response!.data['message']);
     }
   }
 
@@ -61,7 +61,7 @@ class AuthServiceImpl extends AuthService {
       );
       return Right(responseData);
     } on DioException catch (error) {
-      return Left(error.message);
+      return Left(error.response!.data['message']);
     }
   }
 }

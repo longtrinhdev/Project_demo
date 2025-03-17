@@ -171,20 +171,22 @@ void main() {
     const email = 'emails@example.com';
 
     test('Case: Success When true', () async {
-      when(() => authService.checkEmail(any())).thenAnswer((_) async => true);
+      when(() => authService.checkEmail(any()))
+          .thenAnswer((_) async => const Right(true));
 
       final result = await authRepo.checkUser(email);
 
-      expect(result, true);
+      expect(result, const Right(true));
       verify(() => authService.checkEmail(email)).called(1);
     });
 
     test('Case: Success when false', () async {
-      when(() => authService.checkEmail(any())).thenAnswer((_) async => false);
+      when(() => authService.checkEmail(any()))
+          .thenAnswer((_) async => const Left('Invalid credentials'));
 
       final result = await authRepo.checkUser(email);
 
-      expect(result, false);
+      expect(result, const Left('Invalid credentials'));
       verify(() => authService.checkEmail(email)).called(1);
     });
   });

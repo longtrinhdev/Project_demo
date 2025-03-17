@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/local_data/use_case/get_data_use_case.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
@@ -8,10 +6,15 @@ import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/data/auth/models/signup_req.dart';
-import 'package:doulingo/domain/auth/use_case/signup_use_case.dart';
+import 'package:doulingo/presentation/auth/register/bloc/sign_up_cubit.dart';
+import 'package:doulingo/presentation/auth/register/bloc/sign_up_state.dart';
 import 'package:doulingo/presentation/auth/register/pages/signup_success_page.dart';
+import 'package:doulingo/presentation/auth/register/widgets/text_manual.dart';
+import 'package:doulingo/presentation/auth/register/widgets/text_message.dart';
 import 'package:doulingo/service_locators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 
 class EnterPasswordPage extends StatefulWidget {
@@ -33,6 +36,7 @@ class _EnterPasswordPageState extends State<EnterPasswordPage> {
   bool isHide = true;
   String courseId = '';
   String bio = '';
+  String message = '';
 
   @override
   void initState() {
@@ -43,6 +47,37 @@ class _EnterPasswordPageState extends State<EnterPasswordPage> {
   void dispose() {
     super.dispose();
     _controllerPassword.dispose();
+  }
+
+  Widget _loading() {
+    return const SpinKitThreeBounce(
+      color: AppColors.background,
+      size: 30,
+    );
+  }
+
+  Widget _initial() {
+    return Text(
+      AppTexts.btnCreateAccount.toUpperCase(),
+      style: TextStyle(
+        fontSize: 18,
+        color: (checkButton == true)
+            ? AppColors.background
+            : AppColors.textSecondColor,
+        fontWeight: FontWeight.w800,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: _appBar(size),
+      body: _body(size),
+      bottomNavigationBar: const TextManual(),
+    );
   }
 
   Future<String> _getValueByKey(String key) async {
@@ -128,152 +163,95 @@ class _EnterPasswordPageState extends State<EnterPasswordPage> {
     );
   }
 
+  Widget _button() {
+    return BlocBuilder<SignUpCubit, SignUpState>(
+      builder: (context, state) {
+        return BaseButton(
+          onPressed: (checkButton == true)
+              ? () async {
+                  courseId = await _getValueByKey('language');
+                  bio = await _getValueByKey('bio');
+
+                  List<String> usernames = widget.name.toLowerCase().split(' ');
+                  final username = usernames.first + usernames.last;
+                  if (!context.mounted) return;
+                  context.read<SignUpCubit>().signup(
+                        SignupModel(
+                          email: widget.email,
+                          name: widget.name,
+                          username: username,
+                          bio: bio,
+                          courseId: courseId,
+                          password: _controllerPassword.text.toString(),
+                        ),
+                      );
+                }
+              : () {},
+          backgroundColor: (checkButton == null || checkButton == false)
+              ? AppColors.textSecondColor.withOpacity(.5)
+              : AppColors.textThirdColor,
+          checkBorder: (checkButton == true) ? true : false,
+          widget: (state is SignupLoading) ? _loading() : _initial(),
+        );
+      },
+    );
+  }
+
   Widget _body(Size size) {
-    return Container(
-      width: size.width,
-      height: size.height,
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          const Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppTexts.tvPasswordTitle,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.textColor,
-                ),
+    return BlocProvider<SignUpCubit>(
+      create: (_) => SignUpCubit(),
+      child: BlocListener<SignUpCubit, SignUpState>(
+        listener: (context, state) {
+          if (state is SignupSuccessState) {
+            AppRoute.pushAndRemoveLeftToRight(
+              context,
+              const SignupSuccessPage(
+                text: AppTexts.tvSignupSuccessTitle,
               ),
+            );
+          } else if (state is SignupFailureState) {
+            setState(() {
+              message = state.errorMessage;
+            });
+          }
+        },
+        child: Container(
+          width: size.width,
+          height: size.height,
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              const Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppTexts.tvPasswordTitle,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.textColor,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              _textField(
+                AppTexts.tvPasswordHint,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextMessage(message: message),
+              const SizedBox(
+                height: 32,
+              ),
+              _button(),
             ],
           ),
-          const SizedBox(
-            height: 24,
-          ),
-          _textField(
-            AppTexts.tvPasswordHint,
-          ),
-          const SizedBox(
-            height: 32,
-          ),
-          BaseButton(
-            onPressed: () async {
-              courseId = await _getValueByKey('language');
-              bio = await _getValueByKey('bio');
-
-              log('Course id: $courseId');
-              log('Bio: $bio');
-
-              List<String> usernames = widget.name.toLowerCase().split(' ');
-              final username = usernames.first + usernames.last;
-
-              final data = await sl<SignupUseCase>().call(
-                params: SignupModel(
-                  email: widget.email,
-                  name: widget.name,
-                  username: username,
-                  bio: bio,
-                  courseId: courseId,
-                  password: _controllerPassword.text.toString(),
-                ),
-              );
-
-              if (checkButton == true) {
-                data.fold(
-                  (l) {},
-                  (r) {
-                    AppRoute.pushAndRemoveLeftToRight(
-                      context,
-                      const SignupSuccessPage(
-                        text: AppTexts.tvSignupSuccessTitle,
-                      ),
-                    );
-                  },
-                );
-              }
-            },
-            backgroundColor: (checkButton == null || checkButton == false)
-                ? AppColors.textSecondColor.withOpacity(.5)
-                : AppColors.textThirdColor,
-            checkBorder: (checkButton == true) ? true : false,
-            widget: Text(
-              AppTexts.btnCreateAccount.toUpperCase(),
-              style: TextStyle(
-                fontSize: 18,
-                color: (checkButton == true)
-                    ? AppColors.background
-                    : AppColors.textSecondColor,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _bottomBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-      child: RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-          children: [
-            const TextSpan(
-              text: 'Khi đăng ký trên Duolingo, bạn đã đồng ý với ',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textSecondColor,
-              ),
-            ),
-            TextSpan(
-              text: 'Các chính sách ',
-              style: TextStyle(
-                fontSize: 14,
-                color: AppColors.textColor.withOpacity(.8),
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const TextSpan(
-              text: 'và ',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textSecondColor,
-              ),
-            ),
-            TextSpan(
-              text: 'Chính sách bảo mật ',
-              style: TextStyle(
-                fontSize: 14,
-                color: AppColors.textColor.withOpacity(.8),
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const TextSpan(
-              text: 'của chúng tôi. ',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textSecondColor,
-              ),
-            )
-          ],
         ),
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: _appBar(size),
-      body: _body(size),
-      bottomNavigationBar: _bottomBar(),
     );
   }
 }

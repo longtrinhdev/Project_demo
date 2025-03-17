@@ -116,8 +116,9 @@ void main() {
           response: Response(
             requestOptions: RequestOptions(
               path: ApiUrls.register,
-              data: {'message': 'Invalid credentials'},
             ),
+            data: {'message': 'Invalid credentials'},
+            statusCode: 500,
           ),
         ),
       );
@@ -168,8 +169,9 @@ void main() {
           response: Response(
             requestOptions: RequestOptions(
               path: ApiUrls.forgotPW,
-              data: {'message': 'Invalid Credentials'},
             ),
+            data: {'message': 'Invalid Credentials'},
+            statusCode: 500,
           ),
         ),
       );
@@ -203,7 +205,7 @@ void main() {
 
       final result = await authService.checkEmail(email);
 
-      expect(result, isTrue);
+      expect(result, isA<Right>());
       verify(() => dioClient.post(ApiUrls.checkUser, data: {'email': email}))
           .called(1);
     });
@@ -218,16 +220,17 @@ void main() {
         DioException(
           requestOptions: RequestOptions(path: ''),
           response: Response(
-            requestOptions: RequestOptions(
-              path: ApiUrls.checkUser,
+              requestOptions: RequestOptions(
+                path: ApiUrls.checkUser,
+              ),
               data: {'message': 'Invalids Credentials'},
-            ),
-          ),
+              statusCode: 500),
         ),
       );
 
-      expect(() async => await authService.checkEmail(email),
-          throwsA(isA<Exception>()));
+      final result = await authService.checkEmail(email);
+
+      expect(result, isA<Left>());
       verify(() => dioClient.post(ApiUrls.checkUser, data: {'email': email}))
           .called(1);
     });

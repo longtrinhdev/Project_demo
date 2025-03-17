@@ -4,6 +4,7 @@ import 'package:doulingo/common/widget/button/base_button.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/presentation/auth/register/pages/enter_password.dart';
+import 'package:doulingo/presentation/auth/register/widgets/text_manual.dart';
 import 'package:flutter/material.dart';
 
 class EnterNamePage extends StatefulWidget {
@@ -54,59 +55,6 @@ class _EnterNamePageState extends State<EnterNamePage> {
                 ),
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _bottomBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-      child: RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-          children: [
-            const TextSpan(
-              text: 'Khi đăng ký trên Duolingo, bạn đã đồng ý với ',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textSecondColor,
-              ),
-            ),
-            TextSpan(
-              text: 'Các chính sách ',
-              style: TextStyle(
-                fontSize: 14,
-                color: AppColors.textColor.withOpacity(.8),
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const TextSpan(
-              text: 'và ',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textSecondColor,
-              ),
-            ),
-            TextSpan(
-              text: 'Chính sách bảo mật ',
-              style: TextStyle(
-                fontSize: 14,
-                color: AppColors.textColor.withOpacity(.8),
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const TextSpan(
-              text: 'của chúng tôi. ',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textSecondColor,
-              ),
-            )
           ],
         ),
       ),
@@ -237,7 +185,7 @@ class _EnterNamePageState extends State<EnterNamePage> {
         padding: const EdgeInsets.all(16),
         child: _body(),
       ),
-      bottomNavigationBar: _bottomBar(),
+      bottomNavigationBar: const TextManual(),
     );
   }
 }

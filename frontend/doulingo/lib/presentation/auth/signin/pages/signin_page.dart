@@ -234,7 +234,7 @@ class _SigninPageState extends State<SigninPage> {
       builder: (context, state) {
         return BaseButton(
           onPressed: checkButton
-              ? () async {
+              ? () {
                   context.read<SignInCubit>().signIn(
                         _controllerMail.text,
                         _controllerPassword.text,
