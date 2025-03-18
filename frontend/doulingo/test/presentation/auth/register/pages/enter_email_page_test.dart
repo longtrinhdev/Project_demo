@@ -1,110 +1,100 @@
-import 'package:dartz/dartz.dart';
+import 'package:bloc_test/bloc_test.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
-import 'package:doulingo/domain/auth/use_case/check_user_use_case.dart';
+import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/presentation/auth/register/bloc/sign_up_cubit.dart';
 import 'package:doulingo/presentation/auth/register/bloc/sign_up_state.dart';
 import 'package:doulingo/presentation/auth/register/pages/enter_email_page.dart';
+import 'package:doulingo/presentation/auth/signin/pages/signin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockCheckUserUC extends Mock implements CheckUserUseCase {}
+class MockSignupCubit extends MockCubit<SignUpState> implements SignUpCubit {}
 
 void main() {
-  late SignUpCubit cubit;
-  final locator = GetIt.instance;
-  late MockCheckUserUC checkUserUseCase;
+  late MockSignupCubit cubit;
+  bool mockUserExist = true;
 
   setUp(() {
-    checkUserUseCase = MockCheckUserUC();
-    locator.registerLazySingleton<CheckUserUseCase>(() => checkUserUseCase);
-    cubit = SignUpCubit();
+    cubit = MockSignupCubit();
   });
 
   tearDown(() {
     cubit.close();
   });
 
+  Widget widgetTest(Widget body) {
+    return MaterialApp(
+      home: BlocProvider<SignUpCubit>(
+        create: (context) => cubit,
+        child: body,
+      ),
+    );
+  }
+
   group('Enter Email Page', () {
-    Widget widgetTest() {
-      return MaterialApp(
-        home: BlocProvider<SignUpCubit>.value(
-          value: cubit,
-          child: const EnterEmailPage(),
+    testWidgets('UI when state is initial', (tester) async {
+      when(() => cubit.state).thenReturn(SignupInitial());
+
+      await tester.pumpWidget(
+        widgetTest(
+          const EnterEmailPage(),
         ),
       );
-    }
-
-    testWidgets('Ui when state is Initial', (tester) async {
-      await tester.pumpWidget(widgetTest());
 
       expect(find.byType(AppbarBase), findsOneWidget);
-      expect(find.byType(LinearProgressIndicator), findsOneWidget);
-      expect(find.byType(Text), findsNWidgets(5));
+      expect(find.text(AppTexts.tvEmailTitle), findsOneWidget);
+      expect(find.text(AppTexts.tvEmailHint), findsOneWidget);
       expect(find.byType(BaseButton), findsOneWidget);
+      expect(find.byKey(const ValueKey('_back')), findsOneWidget);
     });
 
     testWidgets('UI when state is loading', (tester) async {
-      cubit.emit(SignupLoading());
-      await tester.pumpWidget(widgetTest());
+      when(() => cubit.state).thenReturn(SignupLoading());
 
-      expect(find.byType(SpinKitThreeBounce), findsOneWidget);
-    });
-
-    testWidgets('UI when User exist ', (tester) async {
-      when(
-        () => checkUserUseCase.call(
-          params: any(named: 'params'),
+      await tester.pumpWidget(
+        widgetTest(
+          const EnterEmailPage(),
         ),
-      ).thenAnswer((_) async => const Right(true));
-      await tester.pumpWidget(widgetTest());
+      );
+      await tester.pumpAndSettle();
       await tester.pump();
 
-      await tester.enterText(find.byType(TextField), 'example.@gmail.com');
-      await tester.tap(find.byType(BaseButton));
+      expect(find.byType(AppbarBase), findsOneWidget);
+      expect(find.text(AppTexts.tvEmailTitle), findsOneWidget);
+      expect(cubit.state, isA<SignupLoading>());
+    });
 
-      await cubit.userExist('example.@gmail.com');
-      cubit.emit(SignupSuccessState(isSuccess: true));
+    testWidgets('UI when state is Loaded', (tester) async {
+      when(() => cubit.state)
+          .thenReturn(SignupSuccessState(isSuccess: mockUserExist));
+
+      await tester.pumpWidget(
+        widgetTest(
+          const EnterEmailPage(),
+        ),
+      );
+      await tester.pump();
 
       expect(cubit.state, isA<SignupSuccessState>());
+      expect(find.byType(SigninPage), findsNothing);
     });
 
-    testWidgets('UI when User not found ', (tester) async {
-      when(
-        () => checkUserUseCase.call(
-          params: any(named: 'params'),
+    testWidgets('UI when state is failure', (tester) async {
+      when(() => cubit.state)
+          .thenReturn(SignupFailureState(errorMessage: 'Error message'));
+
+      await tester.pumpWidget(
+        widgetTest(
+          const EnterEmailPage(),
         ),
-      ).thenAnswer((_) async => const Right(false));
-      await tester.pumpWidget(widgetTest());
+      );
       await tester.pump();
-
-      await tester.enterText(find.byType(TextField), 'example.@gmail.com');
-
-      await cubit.userExist('example.@gmail.com');
-      cubit.emit(SignupSuccessState(isSuccess: false));
-
-      expect(cubit.state, isA<SignupSuccessState>());
-    });
-
-    testWidgets('UI when return error message ', (tester) async {
-      when(
-        () => checkUserUseCase.call(
-          params: any(named: 'params'),
-        ),
-      ).thenAnswer((_) async => const Left('Email is not valid'));
-      await tester.pumpWidget(widgetTest());
-      await tester.pump();
-
-      await tester.enterText(find.byType(TextField), 'example.@gmail.com');
-
-      await cubit.userExist('example.@gmail.com');
-      cubit.emit(SignupFailureState(errorMessage: 'Email is not valid'));
 
       expect(cubit.state, isA<SignupFailureState>());
+      expect(find.byType(SigninPage), findsNothing);
     });
   });
 }

@@ -119,6 +119,7 @@ class _EnterNamePageState extends State<EnterNamePage> {
   Widget _body() {
     bool checkButton = oneField && twoField;
     return Column(
+      key: const ValueKey('enter_name_body'),
       children: [
         const Row(
           crossAxisAlignment: CrossAxisAlignment.start,

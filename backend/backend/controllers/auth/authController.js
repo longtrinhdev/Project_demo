@@ -242,23 +242,25 @@ const authController = {
   // ?sign in with Google account
   signInGoogleUser: async (req, res) => {
     try {
-      const idToken = req.body.idToken;
-      const payload = await this.verifyGoogleIdToken(idToken);
-
-      if (payload) {
-        const user = await this.saveDataUser(payload);
-        const accessToken = this.generateAccessToken(user);
-        const refreshToken = this.generateRefreshToken(user);
-        const { password, ...others } = user._doc;
-
-        return res.status(200).json({
-          ...others,
-          accessToken,
-          refreshToken,
-        });
-      } else {
+      const { idToken } = req.body;
+      if (!idToken)
+        return res.status(400).json({ message: "IdToken is missing! " });
+      const ticket = await this.verifyGoogleIdToken(idToken);
+      const payload = ticket.getPayload();
+      if (!payload) {
         return res.status(401).json({ message: "Invalid Google token" });
       }
+
+      const user = await this.saveDataUser(payload);
+      const accessToken = this.generateAccessToken(user);
+      const refreshToken = this.generateRefreshToken(user);
+      const { password, ...others } = user._doc;
+
+      return res.status(200).json({
+        ...others,
+        accessToken,
+        refreshToken,
+      });
     } catch (error) {
       return res.status(500).json({ message: "Internal Server Error" });
     }
@@ -318,7 +320,7 @@ const authController = {
 
   // save data user when signin with Google account
   saveDataUser: async (payload) => {
-    const { sub: googleId, email, name } = payload;
+    const { email, name } = payload;
     const user = User.findOne({ email: email });
 
     if (!user) {
@@ -343,8 +345,7 @@ const authController = {
         idToken: idToken,
         audience: process.env.CLIENT_ID,
       });
-      const payload = ticket.getPayload();
-      return payload;
+      return ticket;
     } catch (error) {
       console.log(error);
       return null;

@@ -63,6 +63,7 @@ class IntroducePage extends StatelessWidget {
 
   Widget _image() {
     return Column(
+      key: const ValueKey('intro_page_image'),
       children: [
         const SizedBox(
           height: 16,
