@@ -22,7 +22,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ChooseLanguage extends StatefulWidget {
-  const ChooseLanguage({super.key});
+  final String? userId;
+  const ChooseLanguage({
+    super.key,
+    this.userId,
+  });
 
   @override
   State<ChooseLanguage> createState() => _ChooseLanguageState();
@@ -71,7 +75,10 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
         if (indexSelected != null && mounted) {
           AppRoute.pushLeftToRight(
             context,
-            const PageFour(progress: 0.6),
+            PageFour(
+              progress: 0.6,
+              userId: widget.userId,
+            ),
           );
         }
       },

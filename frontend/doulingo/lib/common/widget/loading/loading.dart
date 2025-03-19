@@ -9,10 +9,10 @@ class AppLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.secondBackground,
-      child: const Center(
+      child: Center(
         child: SpinKitThreeBounce(
-          color: AppColors.textSecondColor,
-          size: 30,
+          color: AppColors.textSecondColor.withOpacity(.5),
+          size: 32,
         ),
       ),
     );

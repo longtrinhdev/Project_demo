@@ -6,6 +6,7 @@ import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/domain/pronounce/entities/pronounce.dart';
 import 'package:doulingo/domain/pronounce/use_case/get_all_use_case.dart';
+import 'package:doulingo/presentation/pronounce/widgets/divider_text.dart';
 import 'package:doulingo/presentation/pronounce/widgets/pronounce_item.dart';
 import 'package:doulingo/service_locators.dart';
 import 'package:flutter/material.dart';
@@ -25,13 +26,13 @@ class PronouncePage extends StatefulWidget {
 class _PronouncePageState extends State<PronouncePage> {
   Widget _success(Size size, List<PronounceEntity> list) {
     List<PronounceEntity> vowels = list.sublist(0, 15);
-    //List<PronounceEntity> consonants = list.sublist(15, 39);
+    List<PronounceEntity> consonants = list.sublist(15, 39);
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SizedBox(
           width: size.width,
-          height: size.height,
+          height: size.height * 2.1,
           child: Column(
             children: [
               const SizedBox(
@@ -52,27 +53,33 @@ class _PronouncePageState extends State<PronouncePage> {
                 FontWeight.w700,
                 AppColors.textColor.withOpacity(.5),
               ),
-              ...List.generate(
-                1,
-                (index) => Expanded(
-                  child: PronounceItem(list: vowels),
-                ),
+              const SizedBox(
+                height: 24,
+              ),
+              const DividerText(
+                message: AppTexts.tvVowel,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              PronounceItem(
+                list: vowels,
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              const DividerText(
+                message: AppTexts.tvConsonant,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              PronounceItem(
+                list: consonants,
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _text(double fontSize, String message, FontWeight fw, Color color) {
-    return Text(
-      message,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: fontSize,
-        color: color,
-        fontWeight: fw,
       ),
     );
   }
@@ -97,6 +104,18 @@ class _PronouncePageState extends State<PronouncePage> {
           }
           return const FailedPage();
         },
+      ),
+    );
+  }
+
+  Widget _text(double fontSize, String message, FontWeight fw, Color color) {
+    return Text(
+      message,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: fontSize,
+        color: color,
+        fontWeight: fw,
       ),
     );
   }

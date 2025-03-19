@@ -16,4 +16,9 @@ class AppColors {
 
   static const colorStreak = Color(0xffEE9623);
   static const colorHeart = Color(0xffE45457);
+
+  // practice
+  static const practiceCenter = Color(0xff0B326A);
+  static const practiceStart = Color(0xff0B4C45);
+  static const practiceEnd = Color(0xff3F1F73);
 }

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "backend/main.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "nodemon main.js",
     "dev": "nodemon backend/main.js",
     "build": "npm install"
   },

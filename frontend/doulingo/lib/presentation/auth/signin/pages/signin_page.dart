@@ -1,5 +1,4 @@
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
-import 'package:doulingo/common/local_data/use_case/get_data_use_case.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
@@ -10,7 +9,6 @@ import 'package:doulingo/presentation/auth/signin/bloc/sign_in_cubit.dart';
 import 'package:doulingo/presentation/auth/signin/bloc/sign_in_state.dart';
 import 'package:doulingo/presentation/auth/signin/widgets/footer_widget.dart';
 import 'package:doulingo/presentation/main/pages/main_page.dart';
-import 'package:doulingo/service_locators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -71,13 +69,11 @@ class _SigninPageState extends State<SigninPage> {
         child: BlocListener<SignInCubit, SignInState>(
           listener: (context, state) async {
             if (state is SigninSuccessState) {
-              final courseId = await _getValueByKey('language');
               final userEntity = state.user;
               AppRoute.pushAndRemoveBottomToTop(
-                // ignore: use_build_context_synchronously
                 context,
                 MainPage(
-                  courseId: courseId,
+                  courseId: userEntity.courseId![0],
                   learnDays: userEntity.learnDays,
                   score: userEntity.score,
                 ),
@@ -116,13 +112,13 @@ class _SigninPageState extends State<SigninPage> {
                 ),
                 _forgotPassword(),
                 const Spacer(),
+                FooterWidget(
+                  userExist: widget.checkUser,
+                ),
               ],
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: FooterWidget(
-        userExist: widget.checkUser,
       ),
     );
   }
@@ -279,12 +275,5 @@ class _SigninPageState extends State<SigninPage> {
         fontWeight: FontWeight.w900,
       ),
     );
-  }
-
-  Future<String> _getValueByKey(String key) async {
-    final courseId = await sl<GetDataUseCase>().call(
-      params: key,
-    );
-    return courseId;
   }
 }

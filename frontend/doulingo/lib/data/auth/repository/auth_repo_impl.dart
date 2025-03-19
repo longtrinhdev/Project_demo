@@ -76,4 +76,45 @@ class AuthRepoImpl extends AuthRepo {
       },
     );
   }
+
+  @override
+  Future<Either> googleSignin() async {
+    final responseData = await sl<AuthService>().googleSignin();
+    return responseData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) async {
+        final userData = UserMapper.toEntity(UserModel.fromJson(data['user']));
+        await sl<LocalDataRepo>().setString(
+          SharedReq(
+            key: 'access_token',
+            value: data['accessToken'],
+          ),
+        );
+
+        await sl<LocalDataRepo>().setString(
+          SharedReq(
+            key: 'refresh_token',
+            value: data['refreshToken'],
+          ),
+        );
+        return Right(userData);
+      },
+    );
+  }
+
+  @override
+  Future<Either> upCourseId(SignupModel signupReq) async {
+    final responseData = await sl<AuthService>().udCourseId(signupReq);
+    return responseData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) {
+        final userData = UserMapper.toEntity(UserModel.fromJson(data));
+        return Right(userData);
+      },
+    );
+  }
 }

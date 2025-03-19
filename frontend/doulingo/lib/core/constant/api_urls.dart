@@ -4,6 +4,7 @@ class ApiUrls {
   // auth
   static const register = '$baseUrl/auth/register';
   static const signin = '$baseUrl/auth/signin';
+  static const googleSignin = '$baseUrl/auth/google';
   static const checkUser = '$baseUrl/auth/checkUser';
   static const forgotPW = '$baseUrl/auth/fg_pass';
   static const changePW = '$baseUrl/auth/changePW';
@@ -11,6 +12,7 @@ class ApiUrls {
   static const logout = '$baseUrl/auth/logout';
   static const search = '$baseUrl/auth/search';
   static const order = '$baseUrl/auth/order';
+  static const udCourseId = '$baseUrl/auth/udCourseId';
   // courses
   static const addCourse = '$baseUrl/course/add';
   static const methodById = '$baseUrl/course';

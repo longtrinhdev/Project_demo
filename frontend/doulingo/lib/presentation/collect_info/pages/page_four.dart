@@ -11,9 +11,11 @@ import 'package:flutter/material.dart';
 
 class PageFour extends StatefulWidget {
   final double progress;
+  final String? userId;
   const PageFour({
     super.key,
     required this.progress,
+    this.userId,
   });
 
   @override
@@ -23,12 +25,12 @@ class PageFour extends StatefulWidget {
 class _PageFourState extends State<PageFour> {
   int? indexSelected;
   List<String> tvApp = [
-    'Tìm kiếm Google',
-    'Tin tức/báo chí/blog',
-    'TikTok',
-    'Youtube',
-    'TV',
-    'Instagram'
+    AppTexts.tvGoogleSearch,
+    AppTexts.tvVlog,
+    AppTexts.tvYouTube,
+    AppTexts.tvTiktok,
+    AppTexts.tvTV,
+    AppTexts.tvInstagram,
   ];
 
   List<String> imgApp = [
@@ -129,8 +131,9 @@ class _PageFourState extends State<PageFour> {
         if (indexSelected != null) {
           AppRoute.pushLeftToRight(
             context,
-            const PageFive(
+            PageFive(
               progress: 0.8,
+              userId: widget.userId,
             ),
           );
         }

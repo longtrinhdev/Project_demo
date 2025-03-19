@@ -6,5 +6,7 @@ abstract class AuthRepo {
   Future<Either> checkUser(String email);
   Future<Either> signup(SignupModel signupReq);
   Future<Either> signin(SigninModel signinReq);
+  Future<Either> googleSignin();
   Future<Either> forgotPW(SignupModel signinReq);
+  Future<Either> upCourseId(SignupModel signupReq);
 }

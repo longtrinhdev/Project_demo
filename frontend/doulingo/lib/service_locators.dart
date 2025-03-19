@@ -17,8 +17,10 @@ import 'package:doulingo/data/section/sources/section_service.dart';
 import 'package:doulingo/domain/auth/repository/auth_repo.dart';
 import 'package:doulingo/domain/auth/use_case/check_user_use_case.dart';
 import 'package:doulingo/domain/auth/use_case/forgot_pw.dart';
+import 'package:doulingo/domain/auth/use_case/google_signin_uc.dart';
 import 'package:doulingo/domain/auth/use_case/signin_use_case.dart';
 import 'package:doulingo/domain/auth/use_case/signup_use_case.dart';
+import 'package:doulingo/domain/auth/use_case/update_new_course.dart';
 import 'package:doulingo/domain/chapter/repository/chapter_repo.dart';
 import 'package:doulingo/domain/chapter/use_case/get_all_chapter.dart';
 import 'package:doulingo/domain/chapter/use_case/get_chapter_by_id.dart';
@@ -59,11 +61,13 @@ Future<void> setUpServiceLocator() async {
   // Use case
   sl.registerLazySingleton<ForgotPwUseCase>(() => ForgotPwUseCase());
   sl.registerLazySingleton<SigninUseCase>(() => SigninUseCase());
+  sl.registerLazySingleton<GoogleSigninUc>(() => GoogleSigninUc());
   sl.registerLazySingleton<SignupUseCase>(() => SignupUseCase());
   sl.registerLazySingleton<CheckUserUseCase>(() => CheckUserUseCase());
   sl.registerLazySingleton<GetDataUseCase>(() => GetDataUseCase());
   sl.registerLazySingleton<SetDataUseCase>(() => SetDataUseCase());
   sl.registerLazySingleton<RemoveDataUseCase>(() => RemoveDataUseCase());
+  sl.registerLazySingleton<UpdateNewCourseUC>(() => UpdateNewCourseUC());
 
   // use case language
   sl.registerLazySingleton<GetAllLanguageUseCase>(

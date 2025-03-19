@@ -10,9 +10,11 @@ import 'package:flutter/material.dart';
 
 class PageSix extends StatefulWidget {
   final double progress;
+  final String? userId;
   const PageSix({
     super.key,
     required this.progress,
+    this.userId,
   });
 
   @override
@@ -84,7 +86,9 @@ class _PageSixState extends State<PageSix> {
           );
           AppRoute.pushLeftToRight(
             context,
-            const CreateProfile(),
+            CreateProfile(
+              userId: widget.userId,
+            ),
           );
         },
         backgroundColor: AppColors.secondColor,

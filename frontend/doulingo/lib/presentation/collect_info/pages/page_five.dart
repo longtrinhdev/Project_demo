@@ -16,9 +16,11 @@ import 'package:flutter/material.dart';
 
 class PageFive extends StatefulWidget {
   final double progress;
+  final String? userId;
   const PageFive({
     super.key,
     required this.progress,
+    this.userId,
   });
 
   @override
@@ -38,12 +40,12 @@ class _PageFiveState extends State<PageFive> {
   ];
 
   List<String> lstTitle = [
-    'Kết nối với mọi người',
-    'Sử dụng thời gian hiệu quả',
-    'Phát triển sự nghiệp',
-    'Chuẩn bị đi du lịch',
-    'Hỗ trợ việc học tập',
-    'Giải trí',
+    AppTexts.tvConnectPeople,
+    AppTexts.tvDuringTime,
+    AppTexts.tvWork,
+    AppTexts.tvTravels,
+    AppTexts.tvStudy,
+    AppTexts.tvEntertainment,
   ];
 
   PreferredSizeWidget _appBar(Size size) {
@@ -88,7 +90,10 @@ class _PageFiveState extends State<PageFive> {
           if (isSelected != null) {
             AppRoute.pushLeftToRight(
               context,
-              const PageSix(progress: 0.9),
+              PageSix(
+                progress: 0.9,
+                userId: widget.userId,
+              ),
             );
           }
         },

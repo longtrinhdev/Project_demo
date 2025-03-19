@@ -16,4 +16,6 @@ class AppImages {
   static const String imgFriend = '$baseUrl/img_friend.png';
   static const String imgPlane = '$baseUrl/img_plane.png';
   static const String imgLock = '$baseUrl/img_lock.png';
+  static const String imgCheck = '$baseUrl/img_check.png';
+  static const String imgCancel = '$baseUrl/img_cancel.png';
 }

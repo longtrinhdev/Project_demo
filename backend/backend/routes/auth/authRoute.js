@@ -12,6 +12,7 @@ router.post("/logout", middleware.verifyToken, authController.logoutUser);
 router.get("/search", middleware.verifyToken, authController.searchFriendly);
 router.get("/order", middleware.verifyToken, authController.orderUserByScore);
 router.post("/google", authController.signInGoogleUser);
+router.post("/udCourseId", authController.updateCourseAndBio);
 
 // export
 module.exports = router;

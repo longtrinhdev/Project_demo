@@ -1,4 +1,5 @@
 class SignupModel {
+  final String? id;
   final String? name;
   final String? username;
   final String? email;
@@ -7,6 +8,7 @@ class SignupModel {
   final String? courseId;
 
   SignupModel({
+    this.id,
     this.name,
     this.username,
     this.email,
@@ -17,6 +19,7 @@ class SignupModel {
 
   Map<String, dynamic> toMap() {
     return {
+      '_id': id,
       'name': name,
       'username': username,
       'email': email,

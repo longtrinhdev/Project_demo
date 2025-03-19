@@ -4,12 +4,10 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
-const { console } = require("inspector");
-const OAuth2Client = require("google-auth-library");
+const authService = require("../../services/authService");
 
 dotenv.config();
 let saveRefreshTokens = [];
-//const client = OAuth2Client();
 
 const authController = {
   // ? register
@@ -245,24 +243,36 @@ const authController = {
       const { idToken } = req.body;
       if (!idToken)
         return res.status(400).json({ message: "IdToken is missing! " });
-      const ticket = await this.verifyGoogleIdToken(idToken);
+      const ticket = await authService.verifyGoogleIdToken(idToken);
       const payload = ticket.getPayload();
       if (!payload) {
         return res.status(401).json({ message: "Invalid Google token" });
       }
 
-      const user = await this.saveDataUser(payload);
-      const accessToken = this.generateAccessToken(user);
-      const refreshToken = this.generateRefreshToken(user);
-      const { password, ...others } = user._doc;
+      const user = await authController.saveDataUser(payload);
+      const accessToken = authController.generateAccessToken(user);
+      const refreshToken = authController.generateRefreshToken(user);
+      const {
+        name,
+        password,
+        username,
+        email,
+        bio,
+        followers,
+        followings,
+        ...others
+      } = user._doc;
 
       return res.status(200).json({
-        ...others,
+        user: others,
         accessToken,
         refreshToken,
       });
     } catch (error) {
-      return res.status(500).json({ message: "Internal Server Error" });
+      console.log("Error", error);
+      return res
+        .status(500)
+        .json({ message: "Internal Server Error! ", error: error.message });
     }
   },
 
@@ -296,6 +306,27 @@ const authController = {
     }
   },
 
+  // ?update profile user
+  updateCourseAndBio: async (req, res) => {
+    try {
+      const user = await User.findByIdAndUpdate(
+        req.body._id,
+        {
+          $push: { courseId: req.body.courseId },
+        },
+        { new: true }
+      );
+      // user.courseId.push(req.body.courseId);
+      if (!user) return res.status(404).json({ message: "User Not Found" });
+      user.bio = req.body.bio;
+      await user.save();
+      return res.status(200).json(user);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
+
   // generate access token
   generateAccessToken: (user) => {
     return jwt.sign(
@@ -319,36 +350,20 @@ const authController = {
   },
 
   // save data user when signin with Google account
-  saveDataUser: async (payload) => {
+  async saveDataUser(payload) {
     const { email, name } = payload;
-    const user = User.findOne({ email: email });
+    let user = await User.findOne({ email: email });
 
     if (!user) {
-      const newUser = new User({
-        name: name,
-        email: email,
-      });
-
+      const newUser = new User({ name, email });
       await newUser.save();
+      return newUser;
     } else {
       user.email = email;
       user.name = name;
+      user.username = name;
       await user.save();
-    }
-    return user;
-  },
-
-  // verify Id token
-  verifyGoogleIdToken: async (idToken) => {
-    try {
-      const ticket = await client.verifyIdToken({
-        idToken: idToken,
-        audience: process.env.CLIENT_ID,
-      });
-      return ticket;
-    } catch (error) {
-      console.log(error);
-      return null;
+      return user;
     }
   },
 };

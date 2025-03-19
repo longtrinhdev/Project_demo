@@ -25,4 +25,12 @@ class AppVectors {
   static const String icAward = '$basePath/ic_award.svg';
   static const String icDumbbellGrey = '$basePath/ic_dumbbell_grey.svg';
   static const String icBook = '$basePath/ic_book.svg';
+  static const String icPractice = '$basePath/ic_practice.svg';
+  static const String icGrammar = '$basePath/ic_gramar.svg';
+  static const String icListening = '$basePath/ic_listening.svg';
+  static const String icVocab = '$basePath/ic_vocab.svg';
+  static const String icVoice = '$basePath/ic_voice.svg';
+  static const String icRuby = '$basePath/ic_ruby.svg';
+  static const String icSilver = '$basePath/ic_silver.svg';
+  static const String icRankNow = '$basePath/ic_rank_now.svg';
 }

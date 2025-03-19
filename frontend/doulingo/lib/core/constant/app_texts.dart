@@ -45,6 +45,8 @@ class AppTexts {
   static const String btnCreateFilePage = 'Tạo Hồ Sơ';
   static const String tvCreateProfileTitle =
       'Đừng để mất dữ liệu học tập!\nHãy tạo hồ sơ bạn nhé.';
+  static const String tvLeanNow =
+      'Đừng để mất dữ liệu học tập!\nHãy vào học thôi.';
   static const String btnDifference = 'Lúc Khác';
 
   // Helps - Manual
@@ -92,4 +94,48 @@ class AppTexts {
   static const String tvManualContent3 = 'và ';
   static const String tvManualContent4 = 'Chính sách bảo mật ';
   static const String tvManualContent5 = 'của chúng tôi. ';
+
+  // page four
+  static const String tvGoogleSearch = 'Tìm kiếm Google';
+  static const String tvVlog = 'Tin tức/báo chí/blog';
+  static const String tvYouTube = 'Youtube';
+  static const String tvTiktok = 'TikTok';
+  static const String tvTV = 'TV';
+  static const String tvInstagram = 'Instagram';
+
+  // page five
+  static const String tvConnectPeople = 'Kết nối với mọi người';
+  static const String tvDuringTime = 'Sử dụng thời gian hiệu quả';
+  static const String tvWork = 'Phát triển sự nghiệp';
+  static const String tvTravels = 'Chuẩn bị đi du lịch';
+  static const String tvStudy = 'Hỗ trợ việc học tập';
+  static const String tvEntertainment = 'Giải trí';
+
+  // create profile page
+  static const String btnRouteToMain = 'Vào học thôi!';
+
+  // practice
+  static const String tvPracticeTitle = 'Ôn tập hằng ngày';
+  static const String tvCommunication = 'Giao tiếp';
+  static const String tvSpeaking = 'Luyện nói';
+  static const String tvSpeakingContent =
+      'Cải thiện kỹ năng nói với những cụm từ';
+  static const String tvListening = 'Luyện nghe';
+  static const String tvListeningContent =
+      'Trau dồi kỹ năng nghe với những bản\npodcast đặc biệt';
+  static const String tvPractice = 'Góc học tập';
+  static const String tvGrammar = 'Cấu trúc ngữ pháp';
+  static const String tvGrammarContent = 'Ôn tập ngữ pháp Tiếng Anh';
+  static const String tvVocab = 'Từ vựng';
+  static const String tvVocabContent =
+      'Ôn tập từ vựng Tiếng Anh của\nriêng bạn bất cứ lúc nào';
+  static const String tvReading = 'Kho truyện';
+  static const String tvReadingContent =
+      'Đọc lại câu chuyện để ôn tập các\ntừ vựng trong ngữ cảnh nhé';
+  static const String tvPracticeContent = 'Luyện tập chuyên sâu';
+  static const String tvPracticeContent1 =
+      'Tập trung ôn luyện những\nđiểm còn yếu';
+
+  // Rank Page
+  static const String tvRankPageTitle = 'Bảng Xếp Hạng';
 }
