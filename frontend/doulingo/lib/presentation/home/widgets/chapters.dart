@@ -33,9 +33,9 @@ class ChaptersWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         final chapter = chapters[index];
         Color colorCode = Color(int.parse(chapter.color!));
-        return GestureDetector(
+        return ItemView(
           key: const ValueKey('item_chapter'),
-          onTap: () {
+          callback: () {
             AppRoute.pushBottomToTop(
               context,
               LessonPages(
@@ -45,10 +45,8 @@ class ChaptersWidget extends StatelessWidget {
               ),
             );
           },
-          child: ItemView(
-            isSelected: false,
-            title: _itemChapter(chapter, colorCode, size),
-          ),
+          isSelected: false,
+          title: _itemChapter(chapter, colorCode, size),
         );
       },
     );

@@ -18,4 +18,5 @@ class AppImages {
   static const String imgLock = '$baseUrl/img_lock.png';
   static const String imgCheck = '$baseUrl/img_check.png';
   static const String imgCancel = '$baseUrl/img_cancel.png';
+  static const String imgLogout = '$baseUrl/img_logout.png';
 }

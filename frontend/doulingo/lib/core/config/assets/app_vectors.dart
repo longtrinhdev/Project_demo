@@ -33,4 +33,10 @@ class AppVectors {
   static const String icRuby = '$basePath/ic_ruby.svg';
   static const String icSilver = '$basePath/ic_silver.svg';
   static const String icRankNow = '$basePath/ic_rank_now.svg';
+  static const String icCu = '$basePath/ic_cu.svg';
+  static const String icAg = '$basePath/ic_ag.svg';
+  static const String icAu = '$basePath/ic_au.svg';
+  static const String icAvatarDf = '$basePath/ic_avatar_df.svg';
+  static const String icKn = '$basePath/ic_kn.svg';
+  static const String icSetting = '$basePath/ic_setting.svg';
 }

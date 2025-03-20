@@ -138,4 +138,27 @@ class AppTexts {
 
   // Rank Page
   static const String tvRankPageTitle = 'Bảng Xếp Hạng';
+  static const String tvRankPageContent =
+      'Học tập thật chăm chỉ để lên hạng mỗi ngày nhé';
+
+  //Profile Page
+  static const String btnAddFriend = 'Thêm bạn bè';
+  static const String tvFollowers = 'Người theo dõi';
+  static const String tvFollowing = 'Đang theo dõi';
+  static const String tvOverview = 'Tổng quan';
+  static const String tvLeanDay = 'Ngày streak';
+  static const String tvTotalKN = 'Tổng KN';
+  static const String tvNowLevel = 'Vị trí hiện tại';
+  static const String tvOnTopThree = 'Số lần đạt top 3';
+
+  // Setting
+  static const String tvSettingTitle = 'Cài đặt';
+  static const String tvAccount = 'Tài khoản';
+  static const String tvFile = 'Hồ sơ';
+  static const String tvNotification = 'Thông báo';
+  static const String tvCourse = 'Khóa học';
+  static const String tvSocial = 'Tài khoản mạng xã hội';
+  static const String tvSupportTitle = 'Hỗ trợ';
+  static const String tvSupport = 'Trung Tâm Trợ Giúp';
+  static const String btnBack = 'Quay lại';
 }
