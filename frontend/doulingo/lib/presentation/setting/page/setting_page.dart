@@ -1,6 +1,7 @@
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
+import 'package:doulingo/common/widget/divider/app_divider.dart';
 import 'package:doulingo/common/widget/round/app_round.dart';
 import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
@@ -83,6 +84,7 @@ class SettingPage extends StatelessWidget {
     return AppbarBase(
       backgroundColor: AppColors.background,
       hideBack: true,
+      bottom: const AppDivider(),
       title: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -98,16 +100,8 @@ class SettingPage extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          _divider(),
         ],
       ),
-    );
-  }
-
-  Widget _divider() {
-    return const Divider(
-      color: AppColors.unselect,
-      thickness: 1.5,
     );
   }
 
@@ -115,22 +109,22 @@ class SettingPage extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(12.0),
           child: _item(AppTexts.tvFile, () {}),
         ),
-        _divider(),
+        const AppDivider(),
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(12.0),
           child: _item(AppTexts.tvNotification, () {}),
         ),
-        _divider(),
+        const AppDivider(),
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(12.0),
           child: _item(AppTexts.tvCourse, () {}),
         ),
-        _divider(),
+        const AppDivider(),
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(12.0),
           child: _item(AppTexts.tvSocial, () {}),
         ),
       ],

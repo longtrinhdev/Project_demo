@@ -16,6 +16,8 @@ class AppTexts {
   static const String tvForgotPassword = 'Quên mật khẩu? ';
   static const String tvPasswordContent =
       'Nhập địa chỉ email để nhận mật khẩu mới. ';
+  static const String tvLogout = 'Đăng xuất';
+  static const String tvLogoutMessage = 'Bạn vẫn muốn tiếp tục? ';
   static const String tvOr = 'HOẶC';
   static const String tvFacebook = "FACEBOOK";
   static const String tvGoogle = "GOOGLE";
@@ -23,6 +25,7 @@ class AppTexts {
 
   // forgot password
   static const String tvContinue = 'Tiếp Tục';
+  static const String tvBack = 'Quay lại';
 
   // Register
   static const String tvWelcomeTitle = 'Chào bạn! Tớ là Duo!';
@@ -161,4 +164,17 @@ class AppTexts {
   static const String tvSupportTitle = 'Hỗ trợ';
   static const String tvSupport = 'Trung Tâm Trợ Giúp';
   static const String btnBack = 'Quay lại';
+
+  // friend
+  static const String tvFriendTitle = 'Bạn bè';
+  static const String tvSearchFriend = 'Tìm bạn';
+  static const String tvSearchResult = 'Kết quả là: ';
+  static const String tvHintSearch = 'Tên hoặc tên người dùng';
+
+  // helps
+  static const String tvSetting = 'Cài đặt';
+  static const String tvHelpTitle = 'Câu hỏi thường gặp';
+
+  // loading page
+  static const String tvLoadingTitle = 'Đang tải dữ liệu';
 }

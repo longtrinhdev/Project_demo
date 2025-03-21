@@ -1,4 +1,4 @@
-import 'package:doulingo/core/config/theme/app_colors.dart';
+import 'package:doulingo/common/widget/divider/app_divider.dart';
 import 'package:doulingo/presentation/rank/widgets/rank_body.dart';
 import 'package:doulingo/presentation/rank/widgets/rank_header.dart';
 import 'package:flutter/material.dart';
@@ -13,29 +13,22 @@ class RankPage extends StatelessWidget {
       body: SizedBox(
         width: size.width,
         height: size.height,
-        child: Column(
+        child: const Column(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(16.0),
               child: RankHeaderWidget(),
             ),
-            const SizedBox(
+            SizedBox(
               height: 16,
             ),
-            _divider(),
-            const Expanded(
+            AppDivider(),
+            Expanded(
               child: RankBodyWidget(),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _divider() {
-    return const Divider(
-      thickness: 2,
-      color: AppColors.unselect,
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:doulingo/core/config/theme/app_colors.dart';
+import 'package:doulingo/common/widget/divider/app_divider.dart';
 import 'package:doulingo/presentation/profile/widgets/profile_header.dart';
 import 'package:doulingo/presentation/profile/widgets/profile_intro.dart';
 import 'package:doulingo/presentation/profile/widgets/profile_overview.dart';
@@ -13,24 +13,17 @@ class ProfilePage extends StatelessWidget {
     return SizedBox(
       width: size.width,
       height: size.height * 1.5,
-      child: SingleChildScrollView(
+      child: const SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            const ProfileHeaderWidget(),
-            const ProfileIntroWidget(),
-            _divider(),
-            const ProfileOverview(),
+            ProfileHeaderWidget(),
+            ProfileIntroWidget(),
+            AppDivider(),
+            ProfileOverview(),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _divider() {
-    return const Divider(
-      color: AppColors.unselect,
-      thickness: 2,
     );
   }
 }

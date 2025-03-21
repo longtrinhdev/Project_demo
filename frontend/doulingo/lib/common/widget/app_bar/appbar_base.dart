@@ -9,6 +9,7 @@ class AppbarBase extends StatelessWidget implements PreferredSizeWidget {
   final bool hideBack;
   final bool checkIcon;
   final double? height;
+  final Widget? bottom;
   const AppbarBase({
     super.key,
     this.title,
@@ -17,6 +18,7 @@ class AppbarBase extends StatelessWidget implements PreferredSizeWidget {
     this.height,
     this.hideBack = false,
     this.checkIcon = false,
+    this.bottom,
   });
 
   @override
@@ -25,6 +27,10 @@ class AppbarBase extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       scrolledUnderElevation: 0,
       elevation: 0,
+      bottom: PreferredSize(
+        preferredSize: heightDivider,
+        child: bottom ?? const SizedBox(),
+      ),
       backgroundColor: backgroundColor ?? Colors.transparent,
       centerTitle: true,
       title: title ?? const Text(''),
@@ -47,4 +53,5 @@ class AppbarBase extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(height ?? kToolbarHeight);
+  Size get heightDivider => const Size.fromHeight(2);
 }

@@ -1,12 +1,20 @@
+import 'package:doulingo/common/helpers/navigation/app_route.dart';
+import 'package:doulingo/common/widget/button/base_button.dart';
+import 'package:doulingo/common/widget/dialog/app_dialog.dart';
+import 'package:doulingo/common/widget/loading/animation_loading.dart';
 import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_images.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
+import 'package:doulingo/presentation/friend/page/friend_page.dart';
+import 'package:doulingo/presentation/friend/widgets/add_friend.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileIntroWidget extends StatelessWidget {
-  const ProfileIntroWidget({super.key});
+  const ProfileIntroWidget({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,24 +59,32 @@ class ProfileIntroWidget extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          const Row(
-            children: [
-              TextViewShow(
-                text: '${AppTexts.tvFollowing} 0',
-                size: 18,
-                fw: FontWeight.w800,
-                color: AppColors.textThirdColor,
-              ),
-              SizedBox(
-                width: 12,
-              ),
-              TextViewShow(
-                text: '1 ${AppTexts.tvFollowers}',
-                size: 18,
-                fw: FontWeight.w800,
-                color: AppColors.textThirdColor,
-              ),
-            ],
+          GestureDetector(
+            onTap: () {
+              AppRoute.pushLeftToRight(
+                context,
+                const FriendlyPage(),
+              );
+            },
+            child: const Row(
+              children: [
+                TextViewShow(
+                  text: '${AppTexts.tvFollowing} 0',
+                  size: 18,
+                  fw: FontWeight.w800,
+                  color: AppColors.textThirdColor,
+                ),
+                SizedBox(
+                  width: 12,
+                ),
+                TextViewShow(
+                  text: '1 ${AppTexts.tvFollowers}',
+                  size: 18,
+                  fw: FontWeight.w800,
+                  color: AppColors.textThirdColor,
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 10,
@@ -76,12 +92,27 @@ class ProfileIntroWidget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: _button(_addFriend(), () {}),
+                child: _button(
+                  _addFriend(),
+                  () {
+                    AppRoute.pushLeftToRight(
+                      context,
+                      const AddFriend(),
+                    );
+                  },
+                ),
               ),
               const SizedBox(
                 width: 16,
               ),
-              _button(_logout(), () {}),
+              _button(_logout(), () {
+                AppDialog().showDialogApp(
+                  context,
+                  _textTitleLogout(),
+                  _logoutBody(),
+                  _logoutFooter(context),
+                );
+              }),
             ],
           ),
         ],
@@ -144,6 +175,68 @@ class ProfileIntroWidget extends StatelessWidget {
   Widget _logout() {
     return Image.asset(
       AppImages.imgLogout,
+    );
+  }
+
+  _textTitleLogout() {
+    return TextViewShow(
+      text: AppTexts.tvLogout.toUpperCase(),
+      size: 20,
+      color: AppColors.background,
+      fw: FontWeight.w800,
+    );
+  }
+
+  _logoutBody() {
+    return TextViewShow(
+      text: AppTexts.tvLogoutMessage,
+      size: 18,
+      color: AppColors.textColor.withOpacity(.8),
+      fw: FontWeight.w800,
+    );
+  }
+
+  _logoutFooter(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: BaseButton(
+            onPressed: () {
+              AppRoute.pop(context);
+            },
+            backgroundColor: AppColors.background,
+            checkBorder: true,
+            widget: TextViewShow(
+              text: AppTexts.tvBack,
+              size: 18,
+              color: AppColors.textColor.withOpacity(.8),
+              fw: FontWeight.w800,
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Expanded(
+          child: BaseButton(
+            onPressed: () {
+              AppRoute.pop(context);
+              AppRoute.pushLeftToRight(
+                context,
+                const AnimationLoading(),
+              );
+            },
+            backgroundColor: AppColors.textThirdColor,
+            checkBorder: true,
+            widget: const TextViewShow(
+              text: AppTexts.tvContinue,
+              size: 18,
+              color: AppColors.background,
+              fw: FontWeight.w800,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
