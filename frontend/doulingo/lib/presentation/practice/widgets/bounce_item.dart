@@ -1,7 +1,7 @@
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
-import 'package:doulingo/presentation/practice/widgets/text_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

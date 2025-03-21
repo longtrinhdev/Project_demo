@@ -3,6 +3,7 @@ import 'package:doulingo/common/local_data/use_case/get_data_use_case.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
 import 'package:doulingo/common/widget/snack_bar/custom_snackbar.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/common/widget/tool_tip/app_tooltip.dart';
 import 'package:doulingo/core/config/assets/app_images.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
@@ -110,13 +111,11 @@ class _CreateProfileState extends State<CreateProfile> {
                   },
             backgroundColor: AppColors.textThirdColor,
             checkBorder: true,
-            widget: Text(
-              title.toUpperCase(),
-              style: const TextStyle(
-                fontSize: 18,
-                color: AppColors.background,
-                fontWeight: FontWeight.w800,
-              ),
+            widget: TextViewShow(
+              text: title.toUpperCase(),
+              size: 18,
+              color: AppColors.background,
+              fw: FontWeight.w800,
             ),
           ),
           const SizedBox(
@@ -130,13 +129,11 @@ class _CreateProfileState extends State<CreateProfile> {
                       const IntroducePage(),
                     );
                   },
-                  child: Text(
-                    AppTexts.btnDifference.toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w900,
-                      color: AppColors.textThirdColor,
-                    ),
+                  child: TextViewShow(
+                    text: AppTexts.btnDifference.toUpperCase(),
+                    size: 18,
+                    fw: FontWeight.w900,
+                    color: AppColors.textThirdColor,
                   ),
                 )
               : const SizedBox(

@@ -2,6 +2,7 @@ import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/local_data/use_case/get_data_use_case.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
@@ -57,15 +58,13 @@ class _EnterPasswordPageState extends State<EnterPasswordPage> {
   }
 
   Widget _initial() {
-    return Text(
-      AppTexts.btnCreateAccount.toUpperCase(),
-      style: TextStyle(
-        fontSize: 18,
-        color: (checkButton == true)
-            ? AppColors.background
-            : AppColors.textSecondColor,
-        fontWeight: FontWeight.w800,
-      ),
+    return TextViewShow(
+      text: AppTexts.btnCreateAccount.toUpperCase(),
+      size: 18,
+      color: (checkButton == true)
+          ? AppColors.background
+          : AppColors.textSecondColor,
+      fw: FontWeight.w800,
     );
   }
 
@@ -224,13 +223,11 @@ class _EnterPasswordPageState extends State<EnterPasswordPage> {
               const Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    AppTexts.tvPasswordTitle,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900,
-                      color: AppColors.textColor,
-                    ),
+                  TextViewShow(
+                    text: AppTexts.tvPasswordTitle,
+                    size: 20,
+                    fw: FontWeight.w900,
+                    color: AppColors.textColor,
                   ),
                 ],
               ),

@@ -6,6 +6,7 @@ import 'package:doulingo/common/local_data/use_case/set_data_use_case.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
 import 'package:doulingo/common/widget/item_view/item_view.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/common/widget/tool_tip/app_tooltip.dart';
 import 'package:doulingo/core/config/assets/app_images.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
@@ -100,15 +101,13 @@ class _PageFiveState extends State<PageFive> {
         backgroundColor:
             (isSelected == null) ? AppColors.unselect : AppColors.secondColor,
         checkBorder: (isSelected == null) ? false : true,
-        widget: Text(
-          AppTexts.tvContinue,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w800,
-            color: (isSelected == null)
-                ? AppColors.textSecondColor
-                : AppColors.background,
-          ),
+        widget: TextViewShow(
+          text: AppTexts.tvContinue,
+          size: 18,
+          fw: FontWeight.w800,
+          color: (isSelected == null)
+              ? AppColors.textSecondColor
+              : AppColors.background,
         ),
       ),
     );

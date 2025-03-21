@@ -1,3 +1,4 @@
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/presentation/rank/widgets/rank_item.dart';
@@ -184,13 +185,11 @@ class _RankBodyWidgetState extends State<RankBodyWidget> {
       width: 40,
       height: 40,
       alignment: Alignment.center,
-      child: Text(
-        '${index + 1}',
-        style: TextStyle(
-          fontSize: 18,
-          color: color,
-          fontWeight: FontWeight.w800,
-        ),
+      child: TextViewShow(
+        text: '${index + 1}',
+        size: 18,
+        color: color,
+        fw: FontWeight.w800,
       ),
     );
   }

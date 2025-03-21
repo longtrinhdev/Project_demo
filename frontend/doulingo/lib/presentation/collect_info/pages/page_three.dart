@@ -8,6 +8,7 @@ import 'package:doulingo/common/local_data/use_case/set_data_use_case.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
 import 'package:doulingo/common/widget/item_view/item_view.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/common/widget/tool_tip/app_tooltip.dart';
 import 'package:doulingo/core/config/assets/app_images.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
@@ -85,15 +86,13 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
       backgroundColor:
           (indexSelected == null) ? AppColors.unselect : AppColors.secondColor,
       checkBorder: (indexSelected == null) ? false : true,
-      widget: Text(
-        AppTexts.tvContinue.toUpperCase(),
-        style: TextStyle(
-          fontSize: 18,
-          color: (indexSelected == null)
-              ? AppColors.textSecondColor
-              : AppColors.background,
-          fontWeight: FontWeight.w800,
-        ),
+      widget: TextViewShow(
+        text: AppTexts.tvContinue.toUpperCase(),
+        size: 18,
+        color: (indexSelected == null)
+            ? AppColors.textSecondColor
+            : AppColors.background,
+        fw: FontWeight.w800,
       ),
     );
   }
@@ -121,13 +120,11 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
         width: 36,
         height: 36,
       ),
-      title: Text(
-        language.language!,
-        style: const TextStyle(
-          fontSize: 18,
-          color: AppColors.textColor,
-          fontWeight: FontWeight.w900,
-        ),
+      title: TextViewShow(
+        text: language.language!,
+        size: 18,
+        color: AppColors.textColor,
+        fw: FontWeight.w900,
       ),
     );
   }
@@ -208,13 +205,11 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
 
           if (state is DataLoadedFailure) {
             return Center(
-              child: Text(
-                state.errorMessage,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: AppColors.textColor,
-                  fontWeight: FontWeight.w900,
-                ),
+              child: TextViewShow(
+                text: state.errorMessage,
+                size: 18,
+                color: AppColors.textColor,
+                fw: FontWeight.w900,
               ),
             );
           }

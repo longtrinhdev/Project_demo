@@ -3,6 +3,7 @@ import 'package:doulingo/common/bloc/generate_data_state.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/failed_page/failed_page.dart';
 import 'package:doulingo/common/widget/loading/loading.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/domain/languages/entities/language.dart';
@@ -88,13 +89,11 @@ class _MainPageState extends State<MainPage> {
         const SizedBox(
           width: 4,
         ),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w900,
-            color: color,
-          ),
+        TextViewShow(
+          text: title,
+          size: 18,
+          fw: FontWeight.w900,
+          color: color,
         )
       ],
     );

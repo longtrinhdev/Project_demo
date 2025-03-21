@@ -1,6 +1,7 @@
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/presentation/auth/register/bloc/sign_up_cubit.dart';
@@ -40,15 +41,13 @@ class _EnterEmailPageState extends State<EnterEmailPage> {
   }
 
   Widget _initial() {
-    return Text(
-      AppTexts.tvContinue,
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w800,
-        color: (checkButton == true)
-            ? AppColors.background
-            : AppColors.textSecondColor,
-      ),
+    return TextViewShow(
+      text: AppTexts.tvContinue,
+      size: 18,
+      color: (checkButton == true)
+          ? AppColors.background
+          : AppColors.textSecondColor,
+      fw: FontWeight.w800,
     );
   }
 
@@ -164,13 +163,11 @@ class _EnterEmailPageState extends State<EnterEmailPage> {
               const Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    AppTexts.tvEmailTitle,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900,
-                      color: AppColors.textColor,
-                    ),
+                  TextViewShow(
+                    text: AppTexts.tvEmailTitle,
+                    size: 20,
+                    color: AppColors.textColor,
+                    fw: FontWeight.w900,
                   ),
                 ],
               ),

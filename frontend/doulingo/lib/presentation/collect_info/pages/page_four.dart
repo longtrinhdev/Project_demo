@@ -2,6 +2,7 @@ import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
 import 'package:doulingo/common/widget/item_view/item_view.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/common/widget/tool_tip/app_tooltip.dart';
 import 'package:doulingo/core/config/assets/app_images.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
@@ -106,13 +107,11 @@ class _PageFourState extends State<PageFour> {
                   },
                   child: ItemView(
                     leading: Image.asset(icon),
-                    title: Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: AppColors.textColor,
-                        fontWeight: FontWeight.w900,
-                      ),
+                    title: TextViewShow(
+                      text: title,
+                      size: 18,
+                      color: AppColors.textColor,
+                      fw: FontWeight.w900,
                     ),
                     isSelected: (index == indexSelected),
                   ),
@@ -141,15 +140,13 @@ class _PageFourState extends State<PageFour> {
       backgroundColor:
           (indexSelected == null) ? AppColors.unselect : AppColors.secondColor,
       checkBorder: (indexSelected == null) ? false : true,
-      widget: Text(
-        AppTexts.tvContinue.toUpperCase(),
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w800,
-          color: (indexSelected == null)
-              ? AppColors.textSecondColor
-              : AppColors.background,
-        ),
+      widget: TextViewShow(
+        text: AppTexts.tvContinue.toUpperCase(),
+        size: 18,
+        fw: FontWeight.w800,
+        color: (indexSelected == null)
+            ? AppColors.textSecondColor
+            : AppColors.background,
       ),
     );
   }

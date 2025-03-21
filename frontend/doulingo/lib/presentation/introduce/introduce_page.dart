@@ -1,5 +1,6 @@
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
@@ -25,13 +26,11 @@ class IntroducePage extends StatelessWidget {
               const WelcomePage(),
             );
           },
-          widget: const Text(
-            AppTexts.btnGetStarted,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w800,
-              color: AppColors.background,
-            ),
+          widget: const TextViewShow(
+            text: AppTexts.btnGetStarted,
+            size: 18,
+            fw: FontWeight.w800,
+            color: AppColors.background,
           ),
           backgroundColor: AppColors.secondColor,
           checkBorder: true,
@@ -46,13 +45,11 @@ class IntroducePage extends StatelessWidget {
               const SigninPage(),
             );
           },
-          widget: const Text(
-            AppTexts.btnAccount,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w800,
-              color: AppColors.textThirdColor,
-            ),
+          widget: const TextViewShow(
+            text: AppTexts.btnAccount,
+            size: 18,
+            fw: FontWeight.w800,
+            color: AppColors.textThirdColor,
           ),
           backgroundColor: AppColors.background,
           checkBorder: true,

@@ -1,6 +1,7 @@
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
 import 'package:doulingo/common/widget/snack_bar/custom_snackbar.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_images.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
@@ -32,13 +33,11 @@ class FooterWidget extends StatelessWidget {
         const SizedBox(
           width: 8,
         ),
-        const Text(
-          AppTexts.tvOr,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w800,
-            color: AppColors.textSecondColor,
-          ),
+        const TextViewShow(
+          text: AppTexts.tvOr,
+          size: 18,
+          fw: FontWeight.w800,
+          color: AppColors.textSecondColor,
         ),
         const SizedBox(
           width: 8,
@@ -82,13 +81,11 @@ class FooterWidget extends StatelessWidget {
   }
 
   Widget _textFaceOrGG(String title, bool checkIcon) {
-    return Text(
-      title,
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w800,
-        color: checkIcon ? const Color(0xff5A678D) : AppColors.textSecondColor,
-      ),
+    return TextViewShow(
+      text: title,
+      size: 18,
+      fw: FontWeight.w800,
+      color: checkIcon ? const Color(0xff5A678D) : AppColors.textSecondColor,
     );
   }
 

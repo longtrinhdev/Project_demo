@@ -1,3 +1,4 @@
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -65,13 +66,11 @@ class TooltipWidget extends StatelessWidget {
             arrowDirection: arrowDirection,
           ),
         ),
-        child: Text(
-          message,
-          style: const TextStyle(
-            fontSize: 18,
-            color: AppColors.textColor,
-            fontWeight: FontWeight.w800,
-          ),
+        child: TextViewShow(
+          text: message,
+          size: 18,
+          color: AppColors.textColor,
+          fw: FontWeight.w800,
         ),
       ),
     );

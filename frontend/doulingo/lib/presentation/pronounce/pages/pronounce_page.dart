@@ -2,6 +2,7 @@ import 'package:doulingo/common/bloc/generate_data_cubit.dart';
 import 'package:doulingo/common/bloc/generate_data_state.dart';
 import 'package:doulingo/common/widget/failed_page/failed_page.dart';
 import 'package:doulingo/common/widget/loading/loading.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/domain/pronounce/entities/pronounce.dart';
@@ -38,20 +39,22 @@ class _PronouncePageState extends State<PronouncePage> {
               const SizedBox(
                 height: 8,
               ),
-              _text(
-                24,
-                AppTexts.tvPronounceTitle,
-                FontWeight.w900,
-                AppColors.textColor,
+              const TextViewShow(
+                size: 24,
+                text: AppTexts.tvPronounceTitle,
+                fw: FontWeight.w900,
+                color: AppColors.textColor,
+                isCenter: true,
               ),
               const SizedBox(
                 height: 16,
               ),
-              _text(
-                18,
-                AppTexts.tvPronounceIntro,
-                FontWeight.w700,
-                AppColors.textColor.withOpacity(.5),
+              TextViewShow(
+                size: 18,
+                text: AppTexts.tvPronounceIntro,
+                fw: FontWeight.w700,
+                color: AppColors.textColor.withOpacity(.5),
+                isCenter: true,
               ),
               const SizedBox(
                 height: 24,
@@ -104,18 +107,6 @@ class _PronouncePageState extends State<PronouncePage> {
           }
           return const FailedPage();
         },
-      ),
-    );
-  }
-
-  Widget _text(double fontSize, String message, FontWeight fw, Color color) {
-    return Text(
-      message,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: fontSize,
-        color: color,
-        fontWeight: fw,
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
@@ -28,20 +29,20 @@ class RankHeaderWidget extends StatelessWidget {
         const SizedBox(
           height: 24,
         ),
-        _text(
-          AppTexts.tvRankPageTitle,
-          28,
-          FontWeight.w900,
-          AppColors.textColor,
+        const TextViewShow(
+          text: AppTexts.tvRankPageTitle,
+          size: 28,
+          fw: FontWeight.w900,
+          color: AppColors.textColor,
         ),
         const SizedBox(
           height: 12,
         ),
-        _text(
-          AppTexts.tvRankPageContent,
-          18,
-          FontWeight.w800,
-          AppColors.textSecondColor,
+        const TextViewShow(
+          text: AppTexts.tvRankPageContent,
+          size: 18,
+          fw: FontWeight.w800,
+          color: AppColors.textSecondColor,
         ),
       ],
     );
@@ -52,17 +53,6 @@ class RankHeaderWidget extends StatelessWidget {
       assetName,
       width: width,
       fit: BoxFit.cover,
-    );
-  }
-
-  Widget _text(String message, double size, FontWeight fw, Color color) {
-    return Text(
-      message,
-      style: TextStyle(
-        fontSize: size,
-        fontWeight: fw,
-        color: color,
-      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
@@ -48,13 +49,11 @@ class _SigninPageState extends State<SigninPage> {
   }
 
   Widget _success(checkButton) {
-    return Text(
-      AppTexts.btnLogin,
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w800,
-        color: (checkButton) ? AppColors.background : AppColors.textSecondColor,
-      ),
+    return TextViewShow(
+      text: AppTexts.btnLogin,
+      size: 18,
+      fw: FontWeight.w800,
+      color: (checkButton) ? AppColors.background : AppColors.textSecondColor,
     );
   }
 
@@ -127,13 +126,11 @@ class _SigninPageState extends State<SigninPage> {
     return AppbarBase(
       title: (widget.checkUser == true)
           ? null
-          : const Text(
-              AppTexts.signinPageTitle,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-                color: AppColors.textSecondColor,
-              ),
+          : const TextViewShow(
+              text: AppTexts.signinPageTitle,
+              size: 20,
+              fw: FontWeight.w800,
+              color: AppColors.textSecondColor,
             ),
       backgroundColor: AppColors.background,
     );
@@ -143,12 +140,13 @@ class _SigninPageState extends State<SigninPage> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
-          color: AppColors.secondBackground,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: AppColors.textSecondColor.withOpacity(.5),
-            width: 1.5,
-          )),
+        color: AppColors.secondBackground,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: AppColors.textSecondColor.withOpacity(.5),
+          width: 1.5,
+        ),
+      ),
       child: Column(
         children: [
           _textField(_controllerMail, AppTexts.tvHintUsername, false, true),
@@ -255,25 +253,21 @@ class _SigninPageState extends State<SigninPage> {
           const ForgotPassword(),
         );
       },
-      child: const Text(
-        AppTexts.btnForgotPassword,
-        style: TextStyle(
-          fontSize: 18,
-          color: AppColors.textThirdColor,
-          fontWeight: FontWeight.w800,
-        ),
+      child: const TextViewShow(
+        text: AppTexts.btnForgotPassword,
+        size: 18,
+        color: AppColors.textThirdColor,
+        fw: FontWeight.w800,
       ),
     );
   }
 
   Widget _messageCheckAccount() {
-    return const Text(
-      AppTexts.tvCheckUserTitle,
-      style: TextStyle(
-        fontSize: 21,
-        color: AppColors.textColor,
-        fontWeight: FontWeight.w900,
-      ),
+    return const TextViewShow(
+      text: AppTexts.tvCheckUserTitle,
+      size: 21,
+      color: AppColors.textColor,
+      fw: FontWeight.w900,
     );
   }
 }

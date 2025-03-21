@@ -147,7 +147,7 @@ class AppTexts {
   static const String tvFollowing = 'Đang theo dõi';
   static const String tvOverview = 'Tổng quan';
   static const String tvLeanDay = 'Ngày streak';
-  static const String tvTotalKN = 'Tổng KN';
+  static const String tvTotalKN = 'Tổng XP';
   static const String tvNowLevel = 'Vị trí hiện tại';
   static const String tvOnTopThree = 'Số lần đạt top 3';
 

@@ -1,3 +1,4 @@
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -24,13 +25,11 @@ class CustomSnackbar {
               width: 24,
               height: 24,
             ),
-            Text(
-              message!,
-              style: TextStyle(
-                fontSize: 18,
-                color: textColor,
-                fontWeight: FontWeight.w700,
-              ),
+            TextViewShow(
+              text: message!,
+              size: 18,
+              color: textColor!,
+              fw: FontWeight.w700,
             ),
             IconButton(
               onPressed: () {

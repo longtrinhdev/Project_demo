@@ -3,6 +3,7 @@ import 'package:doulingo/common/bloc/generate_data_state.dart';
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/data/auth/models/signup_req.dart';
@@ -40,13 +41,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
   Widget _initial() {
-    return Text(
-      AppTexts.tvContinue,
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w800,
-        color: _checkHidden ? AppColors.background : AppColors.textSecondColor,
-      ),
+    return TextViewShow(
+      text: AppTexts.tvContinue,
+      size: 20,
+      color: _checkHidden ? AppColors.background : AppColors.textSecondColor,
+      fw: FontWeight.w800,
     );
   }
 
@@ -118,17 +117,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: checkTitle ? 22 : 16,
-            fontWeight: checkTitle ? FontWeight.w900 : FontWeight.w800,
-            color: checkTitle
-                ? AppColors.textColor
-                : (_checkMessage)
-                    ? Colors.red
-                    : AppColors.textSecondColor,
-          ),
+        TextViewShow(
+          text: title,
+          size: checkTitle ? 22 : 16,
+          color: checkTitle
+              ? AppColors.textColor
+              : (_checkMessage)
+                  ? Colors.red
+                  : AppColors.textSecondColor,
+          fw: checkTitle ? FontWeight.w900 : FontWeight.w800,
         ),
       ],
     );

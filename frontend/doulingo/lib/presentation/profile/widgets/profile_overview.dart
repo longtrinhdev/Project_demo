@@ -1,3 +1,4 @@
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
@@ -15,11 +16,11 @@ class ProfileOverview extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _text(
-            AppTexts.tvOverview,
-            24,
-            FontWeight.w900,
-            AppColors.textColor,
+          const TextViewShow(
+            text: AppTexts.tvOverview,
+            size: 24,
+            fw: FontWeight.w900,
+            color: AppColors.textColor,
           ),
           const SizedBox(
             height: 16,
@@ -74,17 +75,6 @@ class ProfileOverview extends StatelessWidget {
     );
   }
 
-  Widget _text(String text, double fs, FontWeight fw, Color color) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: fs,
-        fontWeight: fw,
-        color: color,
-      ),
-    );
-  }
-
   Widget _itemOverview(String icon, String title, String subtitle) {
     return Container(
       decoration: BoxDecoration(
@@ -99,12 +89,17 @@ class ProfileOverview extends StatelessWidget {
           icon,
           width: 21,
         ),
-        title: _text(title, 18, FontWeight.w800, AppColors.textColor),
-        subtitle: _text(
-          subtitle,
-          15,
-          FontWeight.w600,
-          AppColors.textSecondColor,
+        title: TextViewShow(
+          text: title,
+          size: 18,
+          fw: FontWeight.w800,
+          color: AppColors.textColor,
+        ),
+        subtitle: TextViewShow(
+          text: subtitle,
+          size: 15,
+          fw: FontWeight.w600,
+          color: AppColors.textSecondColor,
         ),
       ),
     );

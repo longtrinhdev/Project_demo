@@ -1,3 +1,4 @@
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_images.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
@@ -17,7 +18,12 @@ class ProfileIntroWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _text('Long', 24, FontWeight.w900, AppColors.textColor),
+              const TextViewShow(
+                text: 'Long',
+                size: 24,
+                fw: FontWeight.w900,
+                color: AppColors.textColor,
+              ),
               SvgPicture.network(
                 'https://d35aaqx5ub95lt.cloudfront.net/vendor/bbe17e16aa4a106032d8e3521eaed13e.svg',
                 width: 32,
@@ -27,40 +33,40 @@ class ProfileIntroWidget extends StatelessWidget {
           const SizedBox(
             height: 4,
           ),
-          _text(
-            'pilong',
-            18,
-            FontWeight.w600,
-            AppColors.textColor.withOpacity(.6),
+          TextViewShow(
+            text: 'pilong',
+            size: 18,
+            fw: FontWeight.w600,
+            color: AppColors.textColor.withOpacity(.6),
           ),
           const SizedBox(
             height: 2,
           ),
-          _text(
-            AppTexts.tvWork,
-            16,
-            FontWeight.w600,
-            AppColors.textColor.withOpacity(.6),
+          TextViewShow(
+            text: AppTexts.tvWork,
+            size: 16,
+            fw: FontWeight.w600,
+            color: AppColors.textColor.withOpacity(.6),
           ),
           const SizedBox(
             height: 8,
           ),
-          Row(
+          const Row(
             children: [
-              _text(
-                'Đang theo dõi 0',
-                18,
-                FontWeight.w800,
-                AppColors.textThirdColor,
+              TextViewShow(
+                text: '${AppTexts.tvFollowing} 0',
+                size: 18,
+                fw: FontWeight.w800,
+                color: AppColors.textThirdColor,
               ),
-              const SizedBox(
+              SizedBox(
                 width: 12,
               ),
-              _text(
-                '1 Người theo dõi',
-                18,
-                FontWeight.w800,
-                AppColors.textThirdColor,
+              TextViewShow(
+                text: '1 ${AppTexts.tvFollowers}',
+                size: 18,
+                fw: FontWeight.w800,
+                color: AppColors.textThirdColor,
               ),
             ],
           ),
@@ -79,17 +85,6 @@ class ProfileIntroWidget extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _text(String text, double fs, FontWeight fw, Color color) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: fs,
-        fontWeight: fw,
-        color: color,
       ),
     );
   }
@@ -136,11 +131,11 @@ class ProfileIntroWidget extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        _text(
-          AppTexts.btnAddFriend.toUpperCase(),
-          18,
-          FontWeight.w800,
-          AppColors.textThirdColor,
+        TextViewShow(
+          text: AppTexts.btnAddFriend.toUpperCase(),
+          size: 18,
+          fw: FontWeight.w800,
+          color: AppColors.textThirdColor,
         ),
       ],
     );

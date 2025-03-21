@@ -1,6 +1,7 @@
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/presentation/auth/register/pages/enter_password.dart';
@@ -124,13 +125,11 @@ class _EnterNamePageState extends State<EnterNamePage> {
         const Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              AppTexts.tvNameTitle,
-              style: TextStyle(
-                fontSize: 20,
-                color: AppColors.textColor,
-                fontWeight: FontWeight.w900,
-              ),
+            TextViewShow(
+              text: AppTexts.tvNameTitle,
+              size: 20,
+              color: AppColors.textColor,
+              fw: FontWeight.w900,
             ),
           ],
         ),
@@ -159,15 +158,13 @@ class _EnterNamePageState extends State<EnterNamePage> {
               ? AppColors.textThirdColor
               : AppColors.textSecondColor.withOpacity(.5),
           checkBorder: (checkButton) ? true : false,
-          widget: Text(
-            AppTexts.tvContinue.toUpperCase(),
-            style: TextStyle(
-              fontSize: 18,
-              color: (checkButton)
-                  ? AppColors.background
-                  : AppColors.textSecondColor,
-              fontWeight: FontWeight.w800,
-            ),
+          widget: TextViewShow(
+            text: AppTexts.tvContinue.toUpperCase(),
+            size: 18,
+            color: (checkButton)
+                ? AppColors.background
+                : AppColors.textSecondColor,
+            fw: FontWeight.w800,
           ),
         )
       ],

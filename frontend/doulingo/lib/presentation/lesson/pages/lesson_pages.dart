@@ -3,6 +3,7 @@ import 'package:doulingo/common/bloc/generate_data_state.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/failed_page/failed_page.dart';
 import 'package:doulingo/common/widget/loading/loading.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/domain/section/entities/section.dart';
@@ -32,6 +33,7 @@ class _LessonPagesState extends State<LessonPages> {
   int _currentIndexSection = 0;
   final _heightSizeBox = 64.0;
   final double heightScreen = 764.0;
+  final double distance = 300;
   final _scrollController = ScrollController();
 
   @override
@@ -48,9 +50,13 @@ class _LessonPagesState extends State<LessonPages> {
 
   void scrollListener() {
     final currentScroll =
-        _scrollController.position.pixels - _heightSizeBox - 24.0;
+        _scrollController.position.pixels - _heightSizeBox - distance;
     int index = (currentScroll / heightScreen).floor();
-    if (index < 0) index = 0;
+    if (index < 0) {
+      index = 0;
+    } else {
+      index += 1;
+    }
     if (index != _currentIndexSection) {
       setState(() {
         _currentIndexSection = index;
@@ -61,13 +67,11 @@ class _LessonPagesState extends State<LessonPages> {
   PreferredSizeWidget _appBar() {
     return AppbarBase(
       backgroundColor: AppColors.background,
-      title: Text(
-        '${AppTexts.tvLessonTitle}${widget.title}',
-        style: const TextStyle(
-          fontSize: 21,
-          fontWeight: FontWeight.w900,
-          color: AppColors.textColor,
-        ),
+      title: TextViewShow(
+        text: '${AppTexts.tvLessonTitle}${widget.title}',
+        size: 21,
+        fw: FontWeight.w900,
+        color: AppColors.textColor,
       ),
     );
   }

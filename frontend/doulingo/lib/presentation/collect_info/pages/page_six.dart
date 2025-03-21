@@ -1,6 +1,7 @@
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/app_bar/appbar_base.dart';
 import 'package:doulingo/common/widget/button/base_button.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/common/widget/tool_tip/app_tooltip.dart';
 import 'package:doulingo/core/config/assets/app_images.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
@@ -92,13 +93,11 @@ class _PageSixState extends State<PageSix> {
           );
         },
         backgroundColor: AppColors.secondColor,
-        widget: Text(
-          AppTexts.tvContinue.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 18,
-            color: AppColors.background,
-            fontWeight: FontWeight.w800,
-          ),
+        widget: TextViewShow(
+          text: AppTexts.tvContinue.toUpperCase(),
+          size: 18,
+          color: AppColors.background,
+          fw: FontWeight.w800,
         ),
         checkBorder: true,
       ),

@@ -1,3 +1,4 @@
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -21,11 +22,12 @@ class DividerText extends StatelessWidget {
         const SizedBox(
           width: 8,
         ),
-        _text(
-          21,
-          message,
-          FontWeight.w900,
-          AppColors.textColor.withOpacity(.9),
+        TextViewShow(
+          size: 21,
+          text: message,
+          fw: FontWeight.w900,
+          color: AppColors.textColor.withOpacity(.9),
+          isCenter: true,
         ),
         const SizedBox(
           width: 8,
@@ -37,18 +39,6 @@ class DividerText extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _text(double fontSize, String message, FontWeight fw, Color color) {
-    return Text(
-      message,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: fontSize,
-        color: color,
-        fontWeight: fw,
-      ),
     );
   }
 }

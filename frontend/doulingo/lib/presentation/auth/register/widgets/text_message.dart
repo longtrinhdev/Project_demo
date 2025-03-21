@@ -1,3 +1,4 @@
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:flutter/material.dart';
 
 class TextMessage extends StatelessWidget {
@@ -12,13 +13,11 @@ class TextMessage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          message,
-          style: const TextStyle(
-            fontSize: 20,
-            color: Colors.red,
-            fontWeight: FontWeight.bold,
-          ),
+        TextViewShow(
+          text: message,
+          size: 20,
+          color: Colors.red,
+          fw: FontWeight.bold,
         ),
       ],
     );

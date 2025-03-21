@@ -1,3 +1,4 @@
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/config/theme/border_color.dart';
@@ -30,13 +31,11 @@ class RoadMapChapter extends StatelessWidget {
                 const SizedBox(
                   width: 8,
                 ),
-                Text(
-                  data.title!,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: AppColors.textSecondColor,
-                    fontWeight: FontWeight.w800,
-                  ),
+                TextViewShow(
+                  text: data.title!,
+                  size: 20,
+                  color: AppColors.textSecondColor,
+                  fw: FontWeight.w800,
                 ),
                 const SizedBox(
                   width: 8,

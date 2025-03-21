@@ -1,3 +1,4 @@
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/config/theme/border_color.dart';
@@ -22,21 +23,17 @@ class ChapterBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              '$nameChapter, ${data.name}'.toUpperCase(),
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w800,
-                color: AppColors.unselect,
-              ),
+            TextViewShow(
+              text: '$nameChapter, ${data.name}'.toUpperCase(),
+              size: 16,
+              fw: FontWeight.w800,
+              color: AppColors.unselect,
             ),
-            Text(
-              data.title!,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-                color: AppColors.background,
-              ),
+            TextViewShow(
+              text: data.title!,
+              size: 20,
+              fw: FontWeight.w800,
+              color: AppColors.background,
             ),
           ],
         ),

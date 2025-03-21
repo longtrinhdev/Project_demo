@@ -4,6 +4,7 @@ import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/failed_page/failed_page.dart';
 import 'package:doulingo/common/widget/item_view/item_view.dart';
 import 'package:doulingo/common/widget/loading/loading.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_images.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/domain/chapter/entities/chapter.dart';
@@ -77,13 +78,11 @@ class ChaptersWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                chapter.name!,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.textColor,
-                ),
+              TextViewShow(
+                text: chapter.name!,
+                size: 24,
+                fw: FontWeight.w900,
+                color: AppColors.textColor,
               ),
               const SizedBox(
                 height: 8,

@@ -1,4 +1,5 @@
 import 'package:doulingo/common/helpers/navigation/app_route.dart';
+import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_images.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
@@ -40,13 +41,11 @@ class _SplashPageState extends State<SplashPage> {
               padding: const EdgeInsets.only(bottom: 16),
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: Text(
-                  AppTexts.appName.toLowerCase(),
-                  style: const TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.secondBackground,
-                  ),
+                child: TextViewShow(
+                  text: AppTexts.appName.toLowerCase(),
+                  size: 32,
+                  fw: FontWeight.w800,
+                  color: AppColors.secondBackground,
                 ),
               ),
             ),
