@@ -1,3 +1,4 @@
+import 'package:doulingo/common/helpers/mapper/lesson.dart';
 import 'package:doulingo/data/section/models/section.dart';
 import 'package:doulingo/domain/section/entities/section.dart';
 
@@ -9,8 +10,10 @@ class SectionMapper {
       title: section.title,
       image: section.image,
       color: section.color,
-      chapterId: section.chapterId,
-      lessonIds: section.lessonIds,
+      chapter: section.chapter,
+      lessons: section.lessons!
+          .map((lesson) => LessonMapper.toEntity(lesson))
+          .toList(),
       sectionContent: section.sectionContent,
     );
   }

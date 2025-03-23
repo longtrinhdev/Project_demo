@@ -2,7 +2,7 @@ const courseController = require("../../controllers/course/courseController");
 const middleware = require("../../middleware/middleware");
 const router = require("express").Router();
 
-router.post("/add", middleware.verifyToken, courseController.addCourse);
+router.post("/add", courseController.addCourse);
 router.get("/all", courseController.getAllCourses);
 router.get("/:id", courseController.getCourseById);
 router.put("/:id", middleware.verifyToken, courseController.updateCourse);

@@ -1,5 +1,5 @@
 class ApiUrls {
-  static const baseUrl = 'http://10.100.13.3:8000/api/v1';
+  static const baseUrl = 'http://192.168.9.104:8000/api/v1';
 
   // auth
   static const register = '$baseUrl/auth/register';
@@ -29,4 +29,4 @@ class ApiUrls {
   static const getAllSyllable = '$baseUrl/syllable/all';
 }
 //10.100.13.3
-//192.168.9.108
+//192.168.9.104

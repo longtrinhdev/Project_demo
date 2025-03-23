@@ -7,23 +7,54 @@ const sectionController = {
     try {
       const newSection = new Section(req.body);
       const saveSection = await newSection.save();
-      await Chapter.findByIdAndUpdate(req.body.chapterId, {
+      await Chapter.findByIdAndUpdate(req.body.chapter, {
         $push: { sectionIds: saveSection._id },
       });
       res.status(200).json({ message: "Add section successfully! " });
     } catch (error) {
       console.log(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
+
+  addLessonToSection: async (req, res) => {
+    try {
+      const { sectionId, title, isCompleted, isUnlocked, questions } = req.body;
+      const section = await Section.findById(sectionId);
+
+      if (!section) {
+        return res.status(404).json({ message: "Section not found" });
+      }
+
+      const newLesson = {
+        title,
+        isCompleted,
+        isUnlocked,
+        questions,
+      };
+      section.lessons.push(newLesson);
+      await section.save();
+
+      res.status(200).json("Add Lesson Success");
+    } catch (error) {
+      return res.status(500).json({ message: "Internal Server Error" });
     }
   },
 
   // get all sections of chapter
   getAllSections: async (req, res) => {
     try {
-      const chapter = await Chapter.findById(req.params.id);
+      const chapterId = req.params.id;
+      const chapter = await Chapter.findById(chapterId);
       if (!chapter) {
         return res.status(404).json({ message: "Chapter not found" });
       }
-      const sections = await Section.find({ _id: { $in: chapter.sectionIds } });
+      const sections = await Section.find({ chapter: chapterId })
+        .populate({
+          path: "lessons.questions",
+          model: "Question",
+        })
+        .populate("sectionContent");
       res.status(200).json(sections);
     } catch (error) {
       console.log(error);
@@ -54,7 +85,7 @@ const sectionController = {
       if (!section) {
         return res.status(404).json({ message: "Section not found" });
       }
-      await Chapter.findByIdAndUpdate(section.chapterId, {
+      await Chapter.findByIdAndUpdate(section.chapter, {
         $pull: { sectionIds: section._id },
       });
       res.status(200).json({ message: "Section deleted successfully! " });

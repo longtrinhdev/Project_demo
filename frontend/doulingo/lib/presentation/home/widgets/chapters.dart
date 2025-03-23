@@ -122,7 +122,7 @@ class ChaptersWidget extends StatelessWidget {
         text: TextSpan(
           children: [
             TextSpan(
-              text: '3',
+              text: '0',
               style: TextStyle(
                 fontSize: 18,
                 color: (value * 10 > 5)
@@ -142,7 +142,7 @@ class ChaptersWidget extends StatelessWidget {
               ),
             ),
             TextSpan(
-              text: '5',
+              text: '6',
               style: TextStyle(
                 fontSize: 18,
                 color: (value * 10 > 5)

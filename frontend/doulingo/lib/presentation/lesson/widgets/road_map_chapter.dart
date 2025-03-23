@@ -51,7 +51,7 @@ class RoadMapChapter extends StatelessWidget {
               height: 24,
             ),
             ...List.generate(
-              data.lessonIds!.length,
+              data.lessons!.length,
               (index) => Container(
                 margin: EdgeInsets.only(
                   bottom: (index != 8) ? 24 : 16.0,
@@ -63,14 +63,20 @@ class RoadMapChapter extends StatelessWidget {
                   border: Border(
                     bottom: BorderSide(
                       width: 6,
-                      color: borderColor(color, .1),
+                      color: borderColor(
+                          (data.lessons![index].isUnlocked == true)
+                              ? color
+                              : AppColors.textSecondColor,
+                          .1),
                     ),
                   ),
                 ),
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: color,
+                    backgroundColor: (data.lessons![index].isUnlocked == true)
+                        ? color
+                        : AppColors.unselect,
                     alignment: Alignment.center,
                     elevation: 0,
                     fixedSize: const Size(64, 54),

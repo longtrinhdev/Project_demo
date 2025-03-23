@@ -1,11 +1,13 @@
+import 'package:doulingo/domain/section/entities/lesson.dart';
+
 class SectionEntity {
   final String? id;
   final String? image;
   final String? name;
   final String? title;
   final String? color;
-  final dynamic chapterId;
-  final List<dynamic>? lessonIds;
+  final dynamic chapter;
+  final List<LessonEntity>? lessons;
   final List<dynamic>? sectionContent;
 
   SectionEntity({
@@ -14,8 +16,8 @@ class SectionEntity {
     this.name,
     this.title,
     this.color,
-    this.chapterId,
-    this.lessonIds,
+    this.chapter,
+    this.lessons,
     this.sectionContent,
   });
 }
