@@ -1,5 +1,5 @@
 class ApiUrls {
-  static const baseUrl = 'http://192.168.9.104:8000/api/v1';
+  static const baseUrl = 'http://10.100.13.3:8000/api/v1';
 
   // auth
   static const register = '$baseUrl/auth/register';
@@ -24,6 +24,9 @@ class ApiUrls {
 
   //section
   static const getAllSection = '$baseUrl/section';
+
+  // questions
+  static const questionsByIdLesson = '$baseUrl/question/lesson';
 
   // syllables
   static const getAllSyllable = '$baseUrl/syllable/all';

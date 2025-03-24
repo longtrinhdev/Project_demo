@@ -83,6 +83,15 @@ class AppTexts {
   //lesson
   static const String tvLessonTitle = 'Khóa học ';
 
+  // home page
+  static const String tvExistLearnTitle =
+      'Đợi chút, đừng đi mà! Bạn sẽ mất hết \n tiến trình của bài học này nếu thoát bây \n giờ';
+  static const String btnContinueLearn = 'Tiếp tục học';
+  static const String btnStopLearn = 'Dừng lại';
+  static const String btnCheck = 'Kiểm tra';
+  static const String tvSuccess = 'Tuyệt vời!';
+  static const String tvNotSuccess = 'Đáp án đúng: ';
+
   // pronounces
   static const String tvPronounceTitle = 'Cùng học phát âm tiếng Anh\nnào!';
   static const String tvPronounceIntro =

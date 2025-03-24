@@ -6,20 +6,11 @@ const questionController = {
   // ?add question to lesson
   addQuestionToLesson: async (req, res) => {
     try {
-      const {
-        sectionId,
-        lessonId,
-        question,
-        answer,
-        wrongAnswer,
-        isCompleted,
-      } = req.body;
+      const { sectionId, lessonId, question, answer, wrongAnswer } = req.body;
       const newQuestion = new Question({
-        lessonId,
         question,
         answer,
         wrongAnswer,
-        isCompleted,
       });
       const saveQuestion = await newQuestion.save();
       const section = await Section.findById(sectionId);
@@ -63,7 +54,9 @@ const questionController = {
   // ?get all question by lesson id
   getAllQuestionsByLessonId: async (req, res) => {
     try {
-      const { sectionId, lessonId } = req.params;
+      const sectionId = req.params.id;
+      const lessonId = req.query.lessonId;
+      console.log("id: ", sectionId, lessonId);
       const section = await Section.findById(sectionId);
       if (!section) {
         return res.status(404).json({ message: "Section not found " });

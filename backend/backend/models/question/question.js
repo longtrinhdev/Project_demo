@@ -19,10 +19,6 @@ const questionSchema = mongoose.Schema(
         unique: true,
       },
     ],
-    isCompleted: {
-      type: Boolean,
-      default: false,
-    },
     syllable: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Syllable",

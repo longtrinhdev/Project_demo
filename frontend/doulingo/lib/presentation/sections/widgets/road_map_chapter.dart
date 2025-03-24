@@ -1,8 +1,10 @@
+import 'package:doulingo/common/helpers/navigation/app_route.dart';
 import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/assets/app_vectors.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/config/theme/border_color.dart';
 import 'package:doulingo/domain/section/entities/section.dart';
+import 'package:doulingo/presentation/lesson/pages/lesson_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -72,7 +74,19 @@ class RoadMapChapter extends StatelessWidget {
                   ),
                 ),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final sectionId = data.id;
+                    final lessonId = data.lessons![index].id;
+                    if (data.lessons![index].isUnlocked == true) {
+                      AppRoute.pushLeftToRight(
+                        context,
+                        LessonPage(
+                          lessonId: lessonId!,
+                          sectionId: sectionId!,
+                        ),
+                      );
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: (data.lessons![index].isUnlocked == true)
                         ? color

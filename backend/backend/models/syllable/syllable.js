@@ -10,9 +10,6 @@ const syllableSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  audio: {
-    type: String,
-  },
   video: {
     type: String,
   },

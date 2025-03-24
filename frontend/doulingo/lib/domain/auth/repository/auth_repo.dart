@@ -9,4 +9,5 @@ abstract class AuthRepo {
   Future<Either> googleSignin();
   Future<Either> forgotPW(SignupModel signinReq);
   Future<Either> upCourseId(SignupModel signupReq);
+  Future<Either> logout();
 }
