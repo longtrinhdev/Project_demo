@@ -2,9 +2,6 @@ const mongoose = require("mongoose");
 
 const questionSchema = mongoose.Schema(
   {
-    image: {
-      type: "string",
-    },
     question: {
       type: String,
       required: true,
@@ -22,18 +19,7 @@ const questionSchema = mongoose.Schema(
         unique: true,
       },
     ],
-    audio: {
-      type: String,
-    },
-    isCompleted: {
-      type: Boolean,
-      default: false,
-    },
-    lessonId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Lesson",
-    },
-    syllableId: {
+    syllable: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Syllable",
     },

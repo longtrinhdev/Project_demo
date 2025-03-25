@@ -10,12 +10,15 @@ class AppColors {
   static const textSecondColor = Color(0xffAFAFAF);
   static const textThirdColor = Color(0xff1CB0F6);
   static const textColor = Color(0xff4B4B4B);
+  static const textSuccess = Color(0xff58A700);
+  static const textError = Color(0xffEA2B2B);
 
   static const unselect = Color(0xffE5E5E5);
   static const select = Color(0xff1899D6);
 
   static const colorStreak = Color(0xffEE9623);
   static const colorHeart = Color(0xffE45457);
+  static const bgWrongAnswer = Color(0xffFF4B4B);
 
   // practice
   static const practiceCenter = Color(0xff0B326A);

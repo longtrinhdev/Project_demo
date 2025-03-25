@@ -8,11 +8,12 @@ import 'package:doulingo/common/widget/loading/loading.dart';
 import 'package:doulingo/common/widget/tool_tip/app_tooltip.dart';
 import 'package:doulingo/domain/chapter/entities/chapter.dart';
 import 'package:doulingo/domain/chapter/use_case/get_all_chapter.dart';
+import 'package:doulingo/domain/section/entities/lesson.dart';
 import 'package:doulingo/domain/section/entities/section.dart';
 import 'package:doulingo/domain/section/use_case/get_all_use_case.dart';
 import 'package:doulingo/presentation/home/widgets/chapters.dart';
-import 'package:doulingo/presentation/lesson/pages/lesson_pages.dart';
-import 'package:doulingo/presentation/lesson/widgets/chapter_bar.dart';
+import 'package:doulingo/presentation/lesson/pages/lesson_page.dart';
+import 'package:doulingo/presentation/sections/widgets/chapter_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -51,6 +52,14 @@ void main() {
   });
 
   group('UI: Chapter Page', () {
+    final mockLesson = LessonEntity(
+      id: '123456',
+      isCompleted: false,
+      isUnlocked: true,
+      title: 'English',
+      questions: [],
+    );
+
     final mockChapters = [
       ChapterEntity(
         avatar: 'https://example.com/eng.svg',
@@ -71,8 +80,8 @@ void main() {
         color: '0xFFAA1234',
         id: '',
         name: 'Chapter 1',
-        chapterId: '123456',
-        lessonIds: [''],
+        chapter: '123456',
+        lessons: [mockLesson],
         sectionContent: [''],
         title: 'English',
       ),
@@ -163,7 +172,7 @@ void main() {
         await tester.tap(find.byKey(const ValueKey('item_chapter')));
         await tester.pumpAndSettle();
 
-        expect(find.byType(LessonPages), findsOneWidget);
+        expect(find.byType(LessonPage), findsOneWidget);
         expect(find.byType(AppbarBase), findsOneWidget);
         expect(find.byType(ListView), findsNWidgets(2));
         expect(find.byType(ChapterBar), findsOneWidget);

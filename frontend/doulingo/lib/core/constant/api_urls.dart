@@ -25,9 +25,10 @@ class ApiUrls {
   //section
   static const getAllSection = '$baseUrl/section';
 
+  // questions
+  static const questionsByIdLesson = '$baseUrl/question/lesson';
+
   // syllables
   static const getAllSyllable = '$baseUrl/syllable/all';
 }
-//10.100.13.3
-//192.168.9.108
-//192.168.1.17
+

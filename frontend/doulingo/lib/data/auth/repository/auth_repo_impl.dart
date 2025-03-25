@@ -117,4 +117,18 @@ class AuthRepoImpl extends AuthRepo {
       },
     );
   }
+
+  @override
+  Future<Either> logout() async {
+    final responseData = await sl<AuthService>().logout();
+    return responseData.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) async {
+        await sl<LocalDataRepo>().removeData();
+        return Right(data as bool);
+      },
+    );
+  }
 }

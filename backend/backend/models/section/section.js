@@ -1,5 +1,29 @@
 const mongoose = require("mongoose");
 
+const lessonSchema = mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    isCompleted: {
+      type: Boolean,
+      default: false,
+    },
+    isUnlocked: {
+      type: Boolean,
+      default: false,
+    },
+    questions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Question",
+      },
+    ],
+  },
+  { timestamp: true }
+);
+
 const sectionSchema = mongoose.Schema(
   {
     image: {
@@ -21,16 +45,11 @@ const sectionSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    chapterId: {
+    chapter: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chapter",
     },
-    lessonIds: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Lesson",
-      },
-    ],
+    lessons: [lessonSchema],
     sectionContent: [
       {
         type: mongoose.Schema.Types.ObjectId,

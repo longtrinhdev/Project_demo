@@ -1,11 +1,13 @@
+import 'package:doulingo/data/section/models/lesson.dart';
+
 class SectionModel {
   final String? id;
   final String? image;
   final String? name;
   final String? title;
   final String? color;
-  final dynamic chapterId;
-  final List<dynamic>? lessonIds;
+  final dynamic chapter;
+  final List<LessonModel>? lessons;
   final List<dynamic>? sectionContent;
 
   SectionModel({
@@ -14,8 +16,8 @@ class SectionModel {
     this.name,
     this.title,
     this.color,
-    this.chapterId,
-    this.lessonIds,
+    this.chapter,
+    this.lessons,
     this.sectionContent,
   });
 
@@ -26,8 +28,10 @@ class SectionModel {
       name: json['name'],
       title: json['title'],
       color: json['color'],
-      chapterId: json['chapterId'],
-      lessonIds: json['lessonIds'],
+      chapter: json['chapter'],
+      lessons: (json['lessons'] as List<dynamic>?)
+          ?.map((lesson) => LessonModel.toJson(lesson))
+          .toList(),
       sectionContent: json['sectionContent'],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:doulingo/common/local_data/use_case/get_data_use_case.dart';
 import 'package:doulingo/core/constant/api_urls.dart';
 import 'package:doulingo/core/constant/app_urls.dart';
 import 'package:doulingo/core/network/dio_client.dart';
@@ -15,6 +16,7 @@ abstract class AuthService {
   Future<Either> googleSignin();
   Future<Either> forgotPW(SignupModel signupReq);
   Future<Either> udCourseId(SignupModel signupReq);
+  Future<Either> logout();
 }
 
 class AuthServiceImpl extends AuthService {
@@ -100,6 +102,34 @@ class AuthServiceImpl extends AuthService {
       final responseData = await sl<DioClient>().post(
         ApiUrls.udCourseId,
         data: signupReq.toMap(),
+      );
+      return Right(responseData.data);
+    } on DioException catch (error) {
+      return Left(error.response!.data['message']);
+    }
+  }
+
+  @override
+  Future<Either> logout() async {
+    try {
+      final accessToken = await sl<GetDataUseCase>().call(
+        params: 'access_token',
+      );
+      final refreshToken = await sl<GetDataUseCase>().call(
+        params: 'refresh_token',
+      );
+
+      final responseData = await sl<DioClient>().post(
+        ApiUrls.logout,
+        options: Options(
+          headers: {
+            'token': 'Bearer $accessToken',
+            'Content-Type': 'application/json',
+          },
+        ),
+        data: {
+          'refreshToken': refreshToken,
+        },
       );
       return Right(responseData.data);
     } on DioException catch (error) {

@@ -1,16 +1,30 @@
 const Question = require("../../models/question/question");
-const Lesson = require("../../models/lesson/lesson");
+const Section = require("../../models/section/section");
 const Syllable = require("../../models/syllable/syllable");
 
 const questionController = {
   // ?add question to lesson
   addQuestionToLesson: async (req, res) => {
     try {
-      const newQuestion = new Question(req.body);
-      const saveQuestion = await newQuestion.save();
-      await Lesson.findByIdAndUpdate(req.body.lessonId, {
-        $push: { questionId: saveQuestion._id },
+      const { sectionId, lessonId, question, answer, wrongAnswer } = req.body;
+      const newQuestion = new Question({
+        question,
+        answer,
+        wrongAnswer,
       });
+      const saveQuestion = await newQuestion.save();
+      const section = await Section.findById(sectionId);
+      if (!section) {
+        return res.status(404).json({ message: "Section not found " });
+      }
+      const lesson = section.lessons.id(lessonId);
+      if (!lesson) {
+        return res.status(404).json({ message: "Lesson not found in Section" });
+      }
+
+      lesson.questions.push(saveQuestion._id);
+
+      await section.save();
       return res
         .status(200)
         .json({ message: "Add question to lesson successfully! " });
@@ -40,12 +54,19 @@ const questionController = {
   // ?get all question by lesson id
   getAllQuestionsByLessonId: async (req, res) => {
     try {
-      const lesson = await Lesson.findById({ lessonId: req.params.id });
+      const sectionId = req.params.id;
+      const lessonId = req.query.lessonId;
+      console.log("id: ", sectionId, lessonId);
+      const section = await Section.findById(sectionId);
+      if (!section) {
+        return res.status(404).json({ message: "Section not found " });
+      }
+      const lesson = section.lessons.id(lessonId);
       if (!lesson) {
         return res.status(404).json({ message: "Lesson not found " });
       }
       const questions = await Question.find({
-        _id: { $in: lesson.questionId },
+        _id: { $in: lesson.questions },
       });
       return res.status(200).json(questions);
     } catch (error) {
@@ -108,13 +129,22 @@ const questionController = {
   // ?delete question by lesson id
   deleteQuestionByLessonId: async (req, res) => {
     try {
-      const question = await Question.findByIdAndDelete(req.params.id);
-      if (!question) {
+      const { sectionId, lessonId, questionId } = req.params;
+      const section = await Section.findById(sectionId);
+      if (!section) {
+        return res.status(404).json({ message: "Section not found" });
+      }
+      const lesson = section.lessons.id(lessonId);
+      if (!lesson) {
+        return res.status(404).json({ message: "Lesson not found in Section" });
+      }
+      const questionIndex = lesson.questions.indexOf(questionId);
+      if (questionIndex === -1) {
         return res.status(404).json({ message: "Question not found " });
       }
-      await Lesson.findByIdAndUpdate(req.body.lessonId, {
-        $pull: { questionId: req.params.id },
-      });
+      lesson.questions.splice(questionIndex, 1);
+      await section.save();
+      await Question.findByIdAndDelete(questionId);
       return res
         .status(200)
         .json({ message: "Question deleted successfully! " });

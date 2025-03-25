@@ -39,4 +39,5 @@ class AppVectors {
   static const String icAvatarDf = '$basePath/ic_avatar_df.svg';
   static const String icKn = '$basePath/ic_kn.svg';
   static const String icSetting = '$basePath/ic_setting.svg';
+  static const String icCry = '$basePath/ic_cry.svg';
 }

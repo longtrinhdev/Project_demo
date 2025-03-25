@@ -110,15 +110,15 @@ const authController = {
   // ?logout
   logoutUser: (req, res) => {
     try {
-      const refreshToken = req.body.refreshToken;
+      const refreshToken = req.body;
       if (!refreshToken) {
         return res.status(403).json({ message: "Miss refresh token" });
       }
       saveRefreshTokens = saveRefreshTokens.filter(
-        (token) => token !== req.body.refreshToken
+        (token) => token !== refreshToken
       );
 
-      return res.status(200).json({ message: "Logout Successful" });
+      return res.status(200).json(true);
     } catch (error) {
       return res.status(500).json({ message: "Server Error" });
     }

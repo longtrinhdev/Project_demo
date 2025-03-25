@@ -9,7 +9,7 @@ import 'package:doulingo/core/config/assets/app_images.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/domain/chapter/entities/chapter.dart';
 import 'package:doulingo/domain/chapter/use_case/get_all_chapter.dart';
-import 'package:doulingo/presentation/lesson/pages/lesson_pages.dart';
+import 'package:doulingo/presentation/sections/pages/section_pages.dart';
 import 'package:doulingo/service_locators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +39,7 @@ class ChaptersWidget extends StatelessWidget {
           callback: () {
             AppRoute.pushBottomToTop(
               context,
-              LessonPages(
+              SectionPage(
                 title: courseTitle,
                 chapterId: chapter.id!,
                 nameChapter: chapter.name!,
@@ -54,7 +54,7 @@ class ChaptersWidget extends StatelessWidget {
   }
 
   Widget _itemChapter(ChapterEntity chapter, Color color, Size size) {
-    double value = (0 / 5);
+    double value = (0 / 6);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -92,7 +92,7 @@ class ChaptersWidget extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: size.width,
-                    height: 20,
+                    height: 18,
                     child: LinearProgressIndicator(
                       value: value,
                       borderRadius: BorderRadius.circular(16),
@@ -122,7 +122,7 @@ class ChaptersWidget extends StatelessWidget {
         text: TextSpan(
           children: [
             TextSpan(
-              text: '3',
+              text: '0',
               style: TextStyle(
                 fontSize: 18,
                 color: (value * 10 > 5)
@@ -142,7 +142,7 @@ class ChaptersWidget extends StatelessWidget {
               ),
             ),
             TextSpan(
-              text: '5',
+              text: '6',
               style: TextStyle(
                 fontSize: 18,
                 color: (value * 10 > 5)

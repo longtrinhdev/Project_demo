@@ -8,17 +8,17 @@ import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
 import 'package:doulingo/domain/section/entities/section.dart';
 import 'package:doulingo/domain/section/use_case/get_all_use_case.dart';
-import 'package:doulingo/presentation/lesson/widgets/chapter_bar.dart';
-import 'package:doulingo/presentation/lesson/widgets/road_map_chapter.dart';
+import 'package:doulingo/presentation/sections/widgets/chapter_bar.dart';
+import 'package:doulingo/presentation/sections/widgets/road_map_chapter.dart';
 import 'package:doulingo/service_locators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LessonPages extends StatefulWidget {
+class SectionPage extends StatefulWidget {
   final String title;
   final String chapterId;
   final String nameChapter;
-  const LessonPages({
+  const SectionPage({
     super.key,
     required this.title,
     required this.chapterId,
@@ -26,10 +26,10 @@ class LessonPages extends StatefulWidget {
   });
 
   @override
-  State<LessonPages> createState() => _LessonPagesState();
+  State<SectionPage> createState() => _SectionPageState();
 }
 
-class _LessonPagesState extends State<LessonPages> {
+class _SectionPageState extends State<SectionPage> {
   int _currentIndexSection = 0;
   final _heightSizeBox = 64.0;
   final double heightScreen = 764.0;

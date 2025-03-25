@@ -7,7 +7,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
 
 class AnimationLoading extends StatelessWidget {
-  const AnimationLoading({super.key});
+  const AnimationLoading({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
