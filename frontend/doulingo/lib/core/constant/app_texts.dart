@@ -186,4 +186,8 @@ class AppTexts {
 
   // loading page
   static const String tvLoadingTitle = 'Đang tải dữ liệu';
+
+  // support
+  static const String tvHome = 'Trang chủ';
+  static const String tvans = 'Câu hỏi thường gặp';
 }

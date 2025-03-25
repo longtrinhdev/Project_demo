@@ -1,0 +1,2 @@
+D:/hoc/TN/Project_demo/frontend/doulingo/android/app/.cxx/Debug/5o4jf1m5/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/hoc/TN/Project_demo/frontend/doulingo/android/app/.cxx/Debug/5o4jf1m5/armeabi-v7a/CMakeFiles/rebuild_cache.dir

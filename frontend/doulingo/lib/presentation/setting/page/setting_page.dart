@@ -6,6 +6,7 @@ import 'package:doulingo/common/widget/round/app_round.dart';
 import 'package:doulingo/common/widget/text/app_textview.dart';
 import 'package:doulingo/core/config/theme/app_colors.dart';
 import 'package:doulingo/core/constant/app_texts.dart';
+import 'package:doulingo/presentation/support/pages/support_page.dart';
 import 'package:flutter/material.dart';
 
 class SettingPage extends StatelessWidget {
@@ -56,7 +57,9 @@ class SettingPage extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
                 child: _item(
                   AppTexts.tvSupport,
-                  () {},
+                  () {
+                    AppRoute.pushLeftToRight(context, const SupportPage());
+                  },
                 ),
               ),
             ),
